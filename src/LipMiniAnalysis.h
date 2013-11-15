@@ -74,6 +74,10 @@
 #include <iostream>
 #include <sstream>
 
+  // flag for data events
+  extern int isData;
+  // cuts for jets
+  extern double EtaCutJet;
 
 
 // #############################################################################
@@ -177,8 +181,6 @@ public:
   double PtCutPho;
   double IsoCutPho;
 
-  // cuts for jets
-  double EtaCutJet;
 //  double PtCutJet;
   double IsoCutJet;
 
@@ -187,8 +189,6 @@ public:
 //  double BJetCalib;
 //  double BTagCut;
 
-  // flag for data events
-  int isData;
  
   // flag to do good objects selection
   int doGoodObjSelection;
