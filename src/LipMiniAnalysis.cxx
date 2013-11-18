@@ -124,8 +124,8 @@ void LipMiniAnalysis::DefaultValues() {
 // #############################################################################
 
   // units
-  if (!nTuple) GeV = 1;
-  else GeV = nTuple->GeV();
+  if (!nTuple[0]) GeV = 1;
+  else GeV = nTuple[0]->GeV();
   keV = GeV*.000001;
   MeV = GeV*.001;
   TeV = GeV*1000.;
@@ -685,7 +685,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   sprintf(ErrName, "%s%s.err", SystName[0].c_str(), OutputFileName.c_str());
 
   // .....comment the two lines below if you would like to have the output writen to screen
-  freopen(LogName, "w", stdout);
+  //freopen(LogName, "w", stdout);
   freopen(ErrName, "w", stderr);
 
   // Prints logo
@@ -845,8 +845,10 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 //    cout << "    ntuple is of type " << Input.Type(f) << endl;
 
     // declare nTuple type
-    if (Input.Type(f) == "MiniTTHReader") nTuple = new MiniTTHReader(isData);
-    else {
+    if (Input.Type(f) == "MiniTTHReader") {
+      for (int thread = 0; thread < NUM_THREADS; ++thread)
+        nTuple[thread] = new MiniTTHReader(isData);
+    } else {
       cout << "  nTuple is of unknown type: " << Input.Type(f) << " " << endl;
       exit(0); 
     }
@@ -945,8 +947,11 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
     // open nTuple
     //nTuple->Input((char *)Input.Name(f).c_str());
-    nTuple->Input(localfilename);
-    nTuple->Init();
+    for (int thread = 0; thread < NUM_THREADS; ++thread)
+    {
+      nTuple[thread]->Input(localfilename);
+      nTuple[thread]->Init();
+    }
     DefaultValues();
     UserValues();
     CommandLineOptions(0);
@@ -955,7 +960,8 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
     Loop();
 
     // close file
-    delete nTuple;
+    for (int thread = 0; thread < NUM_THREADS; ++thread)
+      delete nTuple[thread];
 
     // remove localfile
     printf("Used File: %s\n", localfilename);
@@ -1026,7 +1032,8 @@ LipMiniAnalysis::~LipMiniAnalysis() {
   if (!fChain) return;
   delete fChain->GetCurrentFile();
 
-  delete nTuple;
+  for (int thread = 0; thread < NUM_THREADS; ++thread)
+    delete nTuple[thread];
   OutputFile.clear();
 }
 
@@ -1773,72 +1780,83 @@ void LipMiniAnalysis::PostLoopCalculations(){
 void LipMiniAnalysis::Loop() {
 // #############################################################################
 
+	for (int thread = 0; thread < NUM_THREADS; ++thread)
+		if (nTuple[thread]->fChain == 0)
+			return;
 
-	if (nTuple->fChain == 0)
+	int nentries = Int_t(nTuple[0]->fChain->GetEntriesFast());
+
+	if (!nentries)
 		return;
 
-	Int_t nentries = Int_t(nTuple->fChain->GetEntriesFast());
-
 	// start loop over all events
-  int max = 0;
-	for (Long64_t i_event = 0; nentries; ++i_event) {
+	int max = 0;
+	//#pragma omp parallel reduction(+:max) num_threads(NUM_THREADS)
+	#pragma omp parallel num_threads(NUM_THREADS)
+	{
+		// If a thread has reached the end of the file it cancels the loop
+		#pragma omp for
+		for (unsigned i_event = 0; i_event < MAX_EVENTS; ++i_event) {
+			int tid = omp_get_thread_num();
+			Int_t ientry;
+			// standard stuff to get the event in memory
+			#pragma omp critical
+			ientry = nTuple[tid]->LoadTree(i_event);
 
-		// standard stuff to get the event in memory
-		Int_t ientry = nTuple->LoadTree(i_event);
-
-		if (ientry < 0)
-			break;
-		
-		nTuple->fChain->GetEntry(i_event);
-
-		// loop over systematics
-		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-
-			// Create a new event object for each systematic
-			Event::EventData ev (nTuple);
-			ev.RecoType = Syst[i_syst];
-			ev.FillAllVectors();
-      events.push_back(ev);
-
-			int mc_aux = -999;
-
-			for (int i = 1; i < MonteCarlo.size(); i++) {
-				if(events[Event::event_counter].Isub == MonteCarlo[i].run())
-					mc_aux = i;
-			}
-			if (mc_aux == -999) {
-				std::cout << "ERROR: MonteCarlo process " << events[Event::event_counter].Isub << " not defined" << endl;
-				exit(0);
+			if (ientry < 0) {
+				i_event = MAX_EVENTS;
 			} else {
-				events[Event::event_counter].mc_process = mc_aux;
+				nTuple[tid]->fChain->GetEntry(i_event);
+
+				// loop over systematics
+				for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
+					// Create a new event object for each systematic
+					Event::EventData ev (nTuple[tid]);
+					ev.RecoType = Syst[i_syst];
+					ev.FillAllVectors();
+					events.push_back(ev);
+
+					int mc_aux = -999;
+
+					for (int i = 1; i < MonteCarlo.size(); i++) {
+						if(events[Event::event_counter].Isub == MonteCarlo[i].run())
+							mc_aux = i;
+					}
+					if (mc_aux == -999) {
+						std::cout << "ERROR: MonteCarlo process " << events[Event::event_counter].Isub << " not defined" << endl;
+						exit(0);
+					} else {
+						events[Event::event_counter].mc_process = mc_aux;
+					}
+
+					// Normalize weight to luminosity
+					if(isData==0 || isQCDantie==1 || isQCDmmm==1)
+						events[Event::event_counter].Weight = events[Event::event_counter].Weight * Luminosity / MonteCarlo[mc_aux].lum();
+
+					Event::event_counter++;
+				}
+				max++;
 			}
+		}
+	}
 
-			// Normalize weight to luminosity
-			if(isData==0 || isQCDantie==1 || isQCDmmm==1)
-				events[Event::event_counter].Weight = events[Event::event_counter].Weight * Luminosity / MonteCarlo[mc_aux].lum();
+	Event::event_counter = 0;
 
-      Event::event_counter++;
-    }
-    max++;
-  }
+	for (int counter = 0; counter < max; counter++) {
+		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
+			// Do selection cuts
+			//DoCuts();
+			first_DoCuts();
+			second_DoCuts();
 
-  Event::event_counter = 0;
+		}
+		Event::event_counter++;
+	}
 
-  for (int counter = 0; counter < max; counter++) {
-    for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-      // Do selection cuts
-      //DoCuts();
-      first_DoCuts();
-      second_DoCuts();
+	Event::event_counter = 0;
 
-    }
-    Event::event_counter++;
-  }
-
-  Event::event_counter = 0;
-
-  for (int counter = 0; counter < max; counter++) {
-    for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
+	for (int counter = 0; counter < max; counter++) {
+		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 
 			// Check if the value of 'MaxCuts' is enough for the cuts made by 'DoCuts()'
 			if (events[Event::event_counter].LastCut > MaxCuts - DoLike){
@@ -1884,6 +1902,6 @@ void LipMiniAnalysis::Loop() {
 
 			FillHistograms(MonteCarlo[0].histo[i_syst].histo);
 		}
-      Event::event_counter++;
+		Event::event_counter++;
 	}
 }

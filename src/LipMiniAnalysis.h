@@ -71,6 +71,8 @@
 #include "TInput.h"
 #include "TMonteCarlo.h"
 
+#include <omp.h>
+
 #include <iostream>
 #include <sstream>
 
@@ -78,6 +80,9 @@
   extern int isData;
   // cuts for jets
   extern double EtaCutJet;
+
+  #define NUM_THREADS 3
+  #define MAX_EVENTS 1000000
 
 
 // #############################################################################
@@ -88,7 +93,7 @@ public:
   TTree          *fChain;   //!pointer to the analyzed TTree or TChain
   Int_t           fCurrent; //!current Tree number in a TChain
 
-  Ntu *nTuple;
+  Ntu *nTuple[NUM_THREADS];
 
 
   // VECTOR WITH ALL THE EVENTS
@@ -203,7 +208,7 @@ public:
 //  Int_t RecoType;
 
   // The main loop
-  virtual void Loop();
+  void Loop();
 
   /*// Variables which are filled for each event
   int Isub;
