@@ -1806,20 +1806,26 @@ void LipMiniAnalysis::Loop() {
 			if (ientry < 0) {
 				i_event = MAX_EVENTS;
 			} else {
-				#pragma omp critical
+				//#pragma omp critical
 				nTuple[tid]->fChain->GetEntry(i_event);
 
 				// loop over systematics
 				for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 					// Create a new event object for each systematic
-					Event::EventData ev (nTuple[tid]);
-					ev.RecoType = Syst[i_syst];
-					ev.FillAllVectors();
-					events.push_back(ev);
+					#pragma omp critical
+					{
+						Event::EventData ev (nTuple[tid]);
+						ev.RecoType = Syst[i_syst];
+						ev.FillAllVectors();
 
+						// TODO: talvez criar um events por thread e fazer apenas aquela estrutura global com as
+						// combinacoes
+						events.push_back(ev);
+					}
 					int mc_aux = -999;
 
 					for (int i = 1; i < MonteCarlo.size(); i++) {
+						#pragma omp critical
 						if(events[Event::event_counter].Isub == MonteCarlo[i].run())
 							mc_aux = i;
 					}
@@ -1843,19 +1849,24 @@ void LipMiniAnalysis::Loop() {
 
 	Event::event_counter = 0;
 
-	for (int counter = 0; counter < max; counter++) {
-		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-			// Do selection cuts
-			//DoCuts();
-			first_DoCuts();
-			second_DoCuts();
+	#pragma omp parallel
+	{
+		#pragma omp for //schedule(dynamic)
+		for (int counter = 0; counter < max; counter++) {
+			for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
+				// Do selection cuts
+				//DoCuts();
+				first_DoCuts();
+				second_DoCuts();
 
+			}
+			Event::event_counter++;
 		}
-		Event::event_counter++;
 	}
 
 	Event::event_counter = 0;
 
+	//#pragma omp parallel for
 	for (int counter = 0; counter < max; counter++) {
 		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 
