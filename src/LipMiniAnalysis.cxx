@@ -1792,15 +1792,15 @@ void LipMiniAnalysis::Loop() {
 	// start loop over all events
 	int max = 0;
 	//#pragma omp parallel reduction(+:max) num_threads(NUM_THREADS)
-	#pragma omp parallel num_threads(NUM_THREADS)
+	//#pragma omp parallel num_threads(NUM_THREADS)
 	{
 		// If a thread has reached the end of the file it cancels the loop
-		#pragma omp for schedule(dynamic)
+		//#pragma omp for schedule(dynamic)
 		for (unsigned i_event = 0; i_event < MAX_EVENTS; ++i_event) {
 			int tid = omp_get_thread_num();
 			Int_t ientry;
 			// standard stuff to get the event in memory
-			#pragma omp critical
+			//#pragma omp critical
 			ientry = nTuple[tid]->LoadTree(i_event);
 
 			if (ientry < 0) {
@@ -1812,7 +1812,7 @@ void LipMiniAnalysis::Loop() {
 				// loop over systematics
 				for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 					// Create a new event object for each systematic
-					#pragma omp critical
+					//#pragma omp critical
 					{
 						Event::EventData ev (nTuple[tid]);
 						ev.RecoType = Syst[i_syst];
@@ -1825,7 +1825,7 @@ void LipMiniAnalysis::Loop() {
 					int mc_aux = -999;
 
 					for (int i = 1; i < MonteCarlo.size(); i++) {
-						#pragma omp critical
+						//#pragma omp critical
 						if(events[Event::event_counter].Isub == MonteCarlo[i].run())
 							mc_aux = i;
 					}
