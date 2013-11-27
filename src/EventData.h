@@ -240,7 +240,7 @@ namespace Event {
 		TLorentzVector 	TruthB_BoostedtoWp,    TruthLepP_BoostedtoWp,       TruthNeu_BoostedtoWp, 
 				TruthBbar_BoostedtoWn, TruthLepN_BoostedtoWn,    TruthNeubar_BoostedtoWn; 
 
-
+		double HasSolution;
 
 		void Calculations (void);
 		void Calculations2 (void);
