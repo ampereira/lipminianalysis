@@ -81,7 +81,7 @@
   // cuts for jets
   extern double EtaCutJet;
 
-  #define NUM_THREADS 2
+  #define NUM_THREADS 1
   #define MAX_EVENTS 1000000
 
 

@@ -1848,6 +1848,8 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
+	cout << "TAU 1" << endl;
+
 	Event::event_counter = 0;
 	//#pragma omp parallel
 	{
@@ -1860,6 +1862,7 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
+	cout << "TAU 2" << endl;
 	Event::event_counter = 0;
 
 	//#pragma omp parallel for
