@@ -1791,8 +1791,7 @@ void LipMiniAnalysis::Loop() {
 
 	// start loop over all events
 	int max = 0;
-	//#pragma omp parallel reduction(+:max) num_threads(NUM_THREADS)
-	#pragma omp parallel num_threads(NUM_THREADS)
+	#pragma omp parallel reduction(+:max) num_threads(NUM_THREADS)
 	{
 		// If a thread has reached the end of the file it cancels the loop
 		#pragma omp for// schedule(dynamic)
@@ -1809,10 +1808,11 @@ void LipMiniAnalysis::Loop() {
 				//#pragma omp critical
 				nTuple[tid]->fChain->GetEntry(i_event);
 
+				cout << "TAU 0" << endl;
 				// loop over systematics
 				for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 					// Create a new event object for each systematic
-					//#pragma omp critical
+					#pragma omp critical
 					{
 						Event::EventData ev (nTuple[tid]);
 						ev.RecoType = Syst[i_syst];
