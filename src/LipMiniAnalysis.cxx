@@ -1808,7 +1808,6 @@ void LipMiniAnalysis::Loop() {
 				#pragma omp critical
 				nTuple[tid]->fChain->GetEntry(i_event);
 
-				cout << "TAU 0" << endl;
 				// loop over systematics
 				for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 					// Create a new event object for each systematic
@@ -1848,7 +1847,6 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-	cout << "TAU 1" << endl;
 
 	Event::event_counter = 0;
 	//#pragma omp parallel
@@ -1862,7 +1860,6 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-	cout << "TAU 2" << endl;
 	Event::event_counter = 0;
 
 	//#pragma omp parallel for
