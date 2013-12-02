@@ -1863,6 +1863,7 @@ void LipMiniAnalysis::Loop() {
 			Event::event_counter++;
 		}
 	}
+	Event::event_counter = 0;
 	//#pragma omp parallel
 	{
 	//	#pragma omp for //schedule(dynamic)
