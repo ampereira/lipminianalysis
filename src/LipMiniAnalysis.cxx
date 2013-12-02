@@ -1840,6 +1840,7 @@ void LipMiniAnalysis::Loop() {
 					if(isData==0 || isQCDantie==1 || isQCDmmm==1)
 						events[Event::event_counter].Weight = events[Event::event_counter].Weight * Luminosity / MonteCarlo[mc_aux].lum();
 
+					first_DoCuts();
 					Event::event_counter++;
 				}
 				max++;
@@ -1847,7 +1848,7 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-	Event::event_counter = 0;
+/*	Event::event_counter = 0;
 
 	//#pragma omp parallel
 	{
@@ -1863,17 +1864,13 @@ void LipMiniAnalysis::Loop() {
 			Event::event_counter++;
 		}
 	}
-	Event::event_counter = 0;
+*/	Event::event_counter = 0;
 	//#pragma omp parallel
 	{
 	//	#pragma omp for //schedule(dynamic)
 		for (int counter = 0; counter < max; counter++) {
 			for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-				// Do selection cuts
-				//DoCuts();
-				//first_DoCuts();
 				second_DoCuts();
-
 			}
 			Event::event_counter++;
 		}
