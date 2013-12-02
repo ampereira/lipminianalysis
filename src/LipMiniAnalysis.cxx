@@ -1805,7 +1805,7 @@ void LipMiniAnalysis::Loop() {
 			if (ientry < 0) {
 				i_event = MAX_EVENTS;
 			} else {
-				//#pragma omp critical
+				#pragma omp critical
 				nTuple[tid]->fChain->GetEntry(i_event);
 
 				cout << "TAU 0" << endl;
