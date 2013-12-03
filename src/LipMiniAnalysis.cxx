@@ -1034,6 +1034,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   strftime(timestring, 100, "%a %d %b %Y %T", timeinfo);
   cout << "  Now is " << timestring << endl;
   cout << "  Total time was " << difftime(rawtimeF, rawtimeI) << " s " << endl;
+  cout << endl << "Ran using " << number_of_threads << " threads" << endl;
 
 }
 
