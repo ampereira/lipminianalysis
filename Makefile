@@ -48,7 +48,10 @@ build/TMonteCarlo.o: src/TMonteCarlo.cxx src/TMonteCarlo.h build/THisto.o
 build/MiniTTHReader.o: build/Ntu.o src/MiniTTHReader.cxx src/MiniTTHReader.h
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c src/MiniTTHReader.cxx -o build/MiniTTHReader.o
 
-build/LipMiniAnalysis.o: src/LipMiniAnalysis.cxx src/LipMiniAnalysis.h build/TLorentzVectorWFlags.o build/Ntu.o build/MiniTTHReader.o build/THisto.o build/TInput.o build/TMonteCarlo.o build/EventData.o
+build/utilities.o: src/utilities.cxx src/utilities.h
+	$(CXX) $(CXXFLAGS) -I$(INCLUDES) -c src/utilities.cxx -o build/utilities.o
+
+build/LipMiniAnalysis.o: src/LipMiniAnalysis.cxx src/LipMiniAnalysis.h build/TLorentzVectorWFlags.o build/Ntu.o build/MiniTTHReader.o build/THisto.o build/TInput.o build/TMonteCarlo.o build/EventData.o build/utilities.o
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c src/LipMiniAnalysis.cxx -o build/LipMiniAnalysis.o
 
 lib/libLipMiniAnalysis.a: build/LipMiniAnalysis.o
@@ -57,7 +60,7 @@ lib/libLipMiniAnalysis.a: build/LipMiniAnalysis.o
 	build/MiniTTHReader.o \
 	build/Ntu.o \
 	build/TLorentzVectorWFlags.o \
-	build/THisto.o build/TInput.o build/TMonteCarlo.o build/EventData.o
+	build/THisto.o build/TInput.o build/TMonteCarlo.o build/EventData.o build/utilities.o
 
 clean:
 	rm -f build/*.o lib/libLipMiniAnalysis.a 

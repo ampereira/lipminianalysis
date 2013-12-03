@@ -669,6 +669,14 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 //
 // #############################################################################
 
+// Environment setup =======
+
+	LIP::defineDilepIterations();
+	LIP::defineNumThreads();
+	long long int tm = LIP::startTimer();
+
+// =========================
+
   argc = i_argc;
   argv = i_argv; 
 
@@ -846,7 +854,9 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
     // declare nTuple type
     if (Input.Type(f) == "MiniTTHReader") {
-      for (int thread = 0; thread < NUM_THREADS; ++thread)
+    	*nTuple = new MiniTTHReader[number_of_threads];
+
+      for (int thread = 0; thread < number_of_threads; ++thread)
         nTuple[thread] = new MiniTTHReader(isData);
     } else {
       cout << "  nTuple is of unknown type: " << Input.Type(f) << " " << endl;
@@ -947,7 +957,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
     // open nTuple
     //nTuple->Input((char *)Input.Name(f).c_str());
-    for (int thread = 0; thread < NUM_THREADS; ++thread)
+    for (int thread = 0; thread < number_of_threads; ++thread)
     {
       nTuple[thread]->Input(localfilename);
       nTuple[thread]->Init();
@@ -960,7 +970,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
     Loop();
 
     // close file
-    for (int thread = 0; thread < NUM_THREADS; ++thread)
+    for (int thread = 0; thread < number_of_threads; ++thread)
       delete nTuple[thread];
 
     // remove localfile
@@ -1016,6 +1026,8 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   PostLoopCalculations();
   WriteHistograms();
 
+	LIP::stopTimer(tm);
+
   // Prints date, time
   time(&rawtimeF);
   timeinfo = localtime(&rawtimeF);
@@ -1032,7 +1044,7 @@ LipMiniAnalysis::~LipMiniAnalysis() {
   if (!fChain) return;
   delete fChain->GetCurrentFile();
 
-  for (int thread = 0; thread < NUM_THREADS; ++thread)
+  for (int thread = 0; thread < number_of_threads; ++thread)
     delete nTuple[thread];
   OutputFile.clear();
 }
@@ -1780,7 +1792,7 @@ void LipMiniAnalysis::PostLoopCalculations(){
 void LipMiniAnalysis::Loop() {
 // #############################################################################
 
-	for (int thread = 0; thread < NUM_THREADS; ++thread)
+	for (int thread = 0; thread < number_of_threads; ++thread)
 		if (nTuple[thread]->fChain == 0)
 			return;
 
@@ -1791,7 +1803,9 @@ void LipMiniAnalysis::Loop() {
 
 	// start loop over all events
 	int max = 0;
-	#pragma omp parallel reduction(+:max) num_threads(NUM_THREADS)
+	ompt_set_thread_num(number_of_threads);
+
+	#pragma omp parallel reduction(+:max)
 	{
 		// If a thread has reached the end of the file it cancels the loop
 		#pragma omp for// schedule(dynamic)
