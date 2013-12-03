@@ -854,7 +854,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
     // declare nTuple type
     if (Input.Type(f) == "MiniTTHReader") {
-    	*nTuple = new MiniTTHReader[number_of_threads];
+    	**nTuple = new MiniTTHReader*[number_of_threads];
 
       for (int thread = 0; thread < number_of_threads; ++thread)
         nTuple[thread] = new MiniTTHReader(isData);

@@ -81,6 +81,7 @@
   extern int isData;
   // cuts for jets
   extern double EtaCutJet;
+  extern int number_of_threads;
 
   #define MAX_EVENTS 1000000
 
