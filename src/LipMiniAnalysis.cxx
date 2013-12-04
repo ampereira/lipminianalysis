@@ -1915,7 +1915,6 @@ void LipMiniAnalysis::Loop() {
 			}
 
 			// Count events
-			c
 			for(int i=0; i <= events[Event::event_counter].LastCut; ++i) {
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelEvt(i_syst, i);
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
