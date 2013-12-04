@@ -125,7 +125,7 @@ void LipMiniAnalysis::DefaultValues() {
 
   // units
   if (!nTuple[0]) GeV = 1;
-  else GeV = nTuple[0]->GeV();
+  else GeV = nTuple[0].GeV();
   keV = GeV*.000001;
   MeV = GeV*.001;
   TeV = GeV*1000.;
@@ -854,10 +854,11 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
     // declare nTuple type
     if (Input.Type(f) == "MiniTTHReader") {
-    	**nTuple = new MiniTTHReader*[number_of_threads];
 
-      for (int thread = 0; thread < number_of_threads; ++thread)
-        nTuple[thread] = new MiniTTHReader(isData);
+      for (int thread = 0; thread < number_of_threads; ++thread){
+      	Ntu aux (isData);
+        nTuple.push_back(aux);
+      }
     } else {
       cout << "  nTuple is of unknown type: " << Input.Type(f) << " " << endl;
       exit(0); 
@@ -959,8 +960,8 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
     //nTuple->Input((char *)Input.Name(f).c_str());
     for (int thread = 0; thread < number_of_threads; ++thread)
     {
-      nTuple[thread]->Input(localfilename);
-      nTuple[thread]->Init();
+      nTuple[thread].Input(localfilename);
+      nTuple[thread].Init();
     }
     DefaultValues();
     UserValues();
@@ -970,8 +971,8 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
     Loop();
 
     // close file
-    for (int thread = 0; thread < number_of_threads; ++thread)
-      delete nTuple[thread];
+   // for (int thread = 0; thread < number_of_threads; ++thread)
+      delete nTuple;
 
     // remove localfile
     printf("Used File: %s\n", localfilename);
@@ -1045,8 +1046,8 @@ LipMiniAnalysis::~LipMiniAnalysis() {
   if (!fChain) return;
   delete fChain->GetCurrentFile();
 
-  for (int thread = 0; thread < number_of_threads; ++thread)
-    delete nTuple[thread];
+ // for (int thread = 0; thread < number_of_threads; ++thread)
+    delete nTuple;
   OutputFile.clear();
 }
 
@@ -1794,10 +1795,10 @@ void LipMiniAnalysis::Loop() {
 // #############################################################################
 
 	for (int thread = 0; thread < number_of_threads; ++thread)
-		if (nTuple[thread]->fChain == 0)
+		if (nTuple[thread].fChain == 0)
 			return;
 
-	int nentries = Int_t(nTuple[0]->fChain->GetEntriesFast());
+	int nentries = Int_t(nTuple[0].fChain->GetEntriesFast());
 
 	if (!nentries)
 		return;
@@ -1815,20 +1816,20 @@ void LipMiniAnalysis::Loop() {
 			Int_t ientry;
 			// standard stuff to get the event in memory
 			#pragma omp critical
-			ientry = nTuple[tid]->LoadTree(i_event);
+			ientry = nTuple[tid].LoadTree(i_event);
 
 			if (ientry < 0) {
 				i_event = MAX_EVENTS;
 			} else {
 				#pragma omp critical
-				nTuple[tid]->fChain->GetEntry(i_event);
+				nTuple[tid].fChain->GetEntry(i_event);
 
 				// loop over systematics
 				for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 					// Create a new event object for each systematic
 					#pragma omp critical
 					{
-						Event::EventData ev (nTuple[tid]);
+						Event::EventData ev (&nTuple[tid]);
 						ev.RecoType = Syst[i_syst];
 						ev.FillAllVectors();
 

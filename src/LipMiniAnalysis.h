@@ -94,7 +94,7 @@ public:
   TTree          *fChain;   //!pointer to the analyzed TTree or TChain
   Int_t           fCurrent; //!current Tree number in a TChain
 
-  Ntu **nTuple;
+  std::vector<Ntu> nTuple;
 
 
   // VECTOR WITH ALL THE EVENTS
