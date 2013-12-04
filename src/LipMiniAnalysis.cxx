@@ -1806,7 +1806,7 @@ void LipMiniAnalysis::Loop() {
 
 	// start loop over all events
 	int max = 0;
-	ompt_set_num_threads(number_of_threads);
+	omp_set_num_threads(number_of_threads);
 
 	#pragma omp parallel reduction(+:max)
 	{
