@@ -1842,7 +1842,7 @@ void LipMiniAnalysis::Loop() {
 					int mc_aux = -999;
 
 					for (int i = 1; i < MonteCarlo.size(); i++) {
-						#pragma omp critical
+						//#pragma omp critical
 						if(events[Event::event_counter].Isub == MonteCarlo[i].run())
 							mc_aux = i;
 					}
@@ -1863,8 +1863,8 @@ void LipMiniAnalysis::Loop() {
 				max++;
 			}
 		}
+	#pragma omp barrier
 	}
-
 
 	Event::event_counter = 0;
 	//#pragma omp parallel
