@@ -1878,7 +1878,7 @@ void LipMiniAnalysis::Loop() {
 	}
 
 	Event::event_counter = 0;
-
+	cout << "TID " << omp_get_thread_num() << endl;
 	//#pragma omp parallel for
 	for (int counter = 0; counter < max; counter++) {
 		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
@@ -1915,7 +1915,7 @@ void LipMiniAnalysis::Loop() {
 			}
 
 			// Count events
-			#pragma omp critical
+			c
 			for(int i=0; i <= events[Event::event_counter].LastCut; ++i) {
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelEvt(i_syst, i);
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
