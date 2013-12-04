@@ -124,7 +124,7 @@ void LipMiniAnalysis::DefaultValues() {
 // #############################################################################
 
   // units
-  if (!nTuple[0]) GeV = 1;
+  if (nTuple.empty()) GeV = 1;
   else GeV = nTuple[0].GeV();
   keV = GeV*.000001;
   MeV = GeV*.001;
@@ -856,7 +856,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
     if (Input.Type(f) == "MiniTTHReader") {
 
       for (int thread = 0; thread < number_of_threads; ++thread){
-      	Ntu aux (isData);
+      	Ntu aux = new MiniTTHReader (isData);
         nTuple.push_back(aux);
       }
     } else {
@@ -972,7 +972,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
     // close file
    // for (int thread = 0; thread < number_of_threads; ++thread)
-      delete nTuple;
+    //delete nTuple;
 
     // remove localfile
     printf("Used File: %s\n", localfilename);
@@ -1047,7 +1047,7 @@ LipMiniAnalysis::~LipMiniAnalysis() {
   delete fChain->GetCurrentFile();
 
  // for (int thread = 0; thread < number_of_threads; ++thread)
-    delete nTuple;
+   // delete nTuple;
   OutputFile.clear();
 }
 
