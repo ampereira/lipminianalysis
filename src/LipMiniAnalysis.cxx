@@ -856,8 +856,9 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
     if (Input.Type(f) == "MiniTTHReader") {
 
       for (int thread = 0; thread < number_of_threads; ++thread){
-      	Ntu aux = new MiniTTHReader (isData);
-        nTuple.push_back(aux);
+      	Ntu *aux;
+      	aux = new MiniTTHReader (isData);
+        nTuple.push_back(*aux);
       }
     } else {
       cout << "  nTuple is of unknown type: " << Input.Type(f) << " " << endl;
