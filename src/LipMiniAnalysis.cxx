@@ -1814,7 +1814,7 @@ void LipMiniAnalysis::Loop() {
 		#pragma omp for// schedule(dynamic)
 		for (unsigned i_event = 0; i_event < MAX_EVENTS; ++i_event) {
 			int tid = omp_get_thread_num();
-			
+
 			Int_t ientry;
 			// standard stuff to get the event in memory
 			#pragma omp critical
@@ -1863,6 +1863,7 @@ void LipMiniAnalysis::Loop() {
 				max++;
 			}
 		}
+		cout << "Tid: " << omp_get_thread_num()<<endl;
 	}
 
 
