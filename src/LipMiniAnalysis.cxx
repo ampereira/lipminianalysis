@@ -1812,7 +1812,7 @@ void LipMiniAnalysis::Loop() {
 	{
 		int tid = omp_get_thread_num();
 		// If a thread has reached the end of the file it cancels the loop
-		#pragma omp for schedule(dynamic)
+		#pragma omp for //schedule(dynamic)
 		for (unsigned i_event = 0; i_event < MAX_EVENTS; ++i_event) {
 
 			Int_t ientry;
