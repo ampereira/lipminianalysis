@@ -1865,9 +1865,10 @@ void LipMiniAnalysis::Loop() {
 	}
 
 	Event::event_counter = 0;
-	//#pragma omp parallel
+	#pragma omp parallel
 	{
-	//	#pragma omp for //schedule(dynamic)
+		cout << "Tid: " << omp_get_thread_num() << endl;
+		#pragma omp for //schedule(dynamic)
 		for (int counter = 0; counter < max; counter++) {
 			for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 				second_DoCuts();
