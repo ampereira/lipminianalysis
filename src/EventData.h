@@ -49,6 +49,24 @@ namespace Event {
 		void TauIsolationDeltaR();
 
 	public:
+
+        //_____objects_____ ttDilepKinFit
+		TLorentzVector 	RecT, RecB, RecWp, RecLepP, RecNeu, RecTbar, RecBbar, RecWn, RecLepN, RecNeubar,
+			RecTTbar, RecHiggs, RecHiggsB1, RecHiggsB2, Neutrino, Antineutrino;
+		double RecMassHiggsJet1, RecMassHiggsJet2, RecProbTotal_ttH;
+		//_____Boost to top_____
+		TLorentzVector RecB_BoostedtoT, RecWp_BoostedtoT, RecLepP_BoostedtoT, RecNeu_BoostedtoT, 
+			RecBbar_BoostedtoTbar, RecWn_BoostedtoTbar, RecLepN_BoostedtoTbar, RecNeubar_BoostedtoTbar; 
+        //_____Boost to ttbar_____
+		TLorentzVector RecT_Boostedtottbar, RecTbar_Boostedtottbar;
+        //_____angles______
+		double RecCos_LepP_T_BoostedtoT, RecCos_Neu_T_BoostedtoT, RecCos_B_T_BoostedtoT, RecCos_LepN_Tbar_BoostedtoTbar, RecCos_Neubar_Tbar_BoostedtoTbar, 
+			RecCos_Bbar_Tbar_BoostedtoTbar, RecCos_LepP_B_BoostedtoWp, RecCos_LepN_Bbar_BoostedtoWn;
+        //_____Boost to W+-_____
+		TLorentzVector RecB_BoostedtoWp, RecLepP_BoostedtoWp, RecNeu_BoostedtoWp, 
+			RecBbar_BoostedtoWn, RecLepN_BoostedtoWn, RecNeubar_BoostedtoWn; 
+
+
 		int Isub;
 		int LumiBlock; 
 		int RunNumber; 
