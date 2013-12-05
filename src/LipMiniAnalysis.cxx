@@ -1879,6 +1879,7 @@ void LipMiniAnalysis::Loop() {
 	Event::event_counter = 0;
 	#pragma omp parallel for
 	for (int counter = 0; counter < max; counter++) {
+		cout << "Tid: " << omp_get_thread_num() << endl;
 		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 
 			// Check if the value of 'MaxCuts' is enough for the cuts made by 'DoCuts()'
