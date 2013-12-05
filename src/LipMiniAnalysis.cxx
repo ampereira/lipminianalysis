@@ -1917,7 +1917,7 @@ void LipMiniAnalysis::Loop() {
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelEvt(i_syst, i);
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
 				// total background
-				cout << "Event: " << Event::event_counter << " - Cut: " << i << endl;
+				cout << "Event: " << Event::event_counter << " - Cut: " << i << " - type: " << MonteCarlo[events[Event::event_counter].mc_process].type() << endl;
 				if (MonteCarlo[events[Event::event_counter].mc_process].type()==1) {
 					MonteCarlo[0].AddSelEvt(i_syst, i);
 					MonteCarlo[0].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
