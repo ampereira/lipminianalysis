@@ -1921,10 +1921,12 @@ void LipMiniAnalysis::Loop() {
 					// total background
 					
 					//cout << "Event: " << Event::event_counter << " - Cut: " << i << " - type: " << MonteCarlo[events[Event::event_counter].mc_process].type() << endl;
-					#pragma omp critical
 					if (MonteCarlo[events[Event::event_counter].mc_process].type()==1) {
-						MonteCarlo[0].AddSelEvt(i_syst, i);
-						MonteCarlo[0].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
+						#pragma omp critical
+						{
+							MonteCarlo[0].AddSelEvt(i_syst, i);
+							MonteCarlo[0].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
+						}
 					}
 				}
 
