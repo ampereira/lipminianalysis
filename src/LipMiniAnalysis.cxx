@@ -1884,7 +1884,7 @@ void LipMiniAnalysis::Loop() {
 			// Check if the value of 'MaxCuts' is enough for the cuts made by 'DoCuts()'
 			if (events[Event::event_counter].LastCut > MaxCuts - DoLike){
 				cout << endl;
-				cout << "Oops! The number of cuts in DoCuts() exceeded MaxCuts:" << endl;
+				cout << "Oops! The number of cuts in DoCuts() exceeded MaxCuts (event " << Event::event_counter << "):" << endl;
 				cout << endl;
 				cout << "  MaxCuts is " << MaxCuts << " but you required " << events[Event::event_counter].LastCut << " cuts in DoCuts()..." << endl;
 				cout << "  Try again with a higher value for MaxCuts!" << endl;
