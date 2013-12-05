@@ -1877,58 +1877,61 @@ void LipMiniAnalysis::Loop() {
 	}
 
 	Event::event_counter = 0;
-	#pragma omp parallel for
-	for (int counter = 0; counter < max; counter++) {
-		cout << "Tid: " << omp_get_thread_num() << endl;
-		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
+	#pragma omp parallel
+	{
+			cout << "Tid: " << omp_get_thread_num() << endl;
+		#pragma omp for schedule(dynamic)
+		for (int counter = 0; counter < max; counter++) {
+			for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 
-			// Check if the value of 'MaxCuts' is enough for the cuts made by 'DoCuts()'
-			if (events[Event::event_counter].LastCut > MaxCuts - DoLike){
-				cout << endl;
-				cout << "Oops! The number of cuts in DoCuts() exceeded MaxCuts (event " << Event::event_counter << "):" << endl;
-				cout << endl;
-				cout << "  MaxCuts is " << MaxCuts << " but you required " << events[Event::event_counter].LastCut << " cuts in DoCuts()..." << endl;
-				cout << "  Try again with a higher value for MaxCuts!" << endl;
-				cout << endl;
-				exit(0);
-			}
-
-			// probability density functions
-			if (events[Event::event_counter].LastCut == MaxCuts - DoLike) {
-				// fill pdf
-				PdfValues();
-				// compute likelihood
-				if (DoLike) {
-					ComputeAndFillLikelihood();
-					if (LogELikeLOverLikeBValue >= LogELikeMinCut && Log10LikeLOverLikeBValue >= Log10LikeMinCut
-						&& LogELikeLOverLikeBValue <= LogELikeMaxCut && Log10LikeLOverLikeBValue <= Log10LikeMaxCut)
-						events[Event::event_counter].LastCut++;
+				// Check if the value of 'MaxCuts' is enough for the cuts made by 'DoCuts()'
+				if (events[Event::event_counter].LastCut > MaxCuts - DoLike){
+					cout << endl;
+					cout << "Oops! The number of cuts in DoCuts() exceeded MaxCuts (event " << Event::event_counter << "):" << endl;
+					cout << endl;
+					cout << "  MaxCuts is " << MaxCuts << " but you required " << events[Event::event_counter].LastCut << " cuts in DoCuts()..." << endl;
+					cout << "  Try again with a higher value for MaxCuts!" << endl;
+					cout << endl;
+					exit(0);
 				}
-			}
 
-			if (events[Event::event_counter].LastCut == MaxCuts) {
-				// fill pdf
-				FillPdf(0);
-				// fill output ntuple
-				FillOutputNtuple(0);
-			}
-
-			// Count events
-			for(int i=0; i <= events[Event::event_counter].LastCut; ++i) {
-				MonteCarlo[events[Event::event_counter].mc_process].AddSelEvt(i_syst, i);
-				MonteCarlo[events[Event::event_counter].mc_process].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
-				// total background
-				
-				//cout << "Event: " << Event::event_counter << " - Cut: " << i << " - type: " << MonteCarlo[events[Event::event_counter].mc_process].type() << endl;
-				#pragma omp critical
-				if (MonteCarlo[events[Event::event_counter].mc_process].type()==1) {
-					MonteCarlo[0].AddSelEvt(i_syst, i);
-					MonteCarlo[0].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
+				// probability density functions
+				if (events[Event::event_counter].LastCut == MaxCuts - DoLike) {
+					// fill pdf
+					PdfValues();
+					// compute likelihood
+					if (DoLike) {
+						ComputeAndFillLikelihood();
+						if (LogELikeLOverLikeBValue >= LogELikeMinCut && Log10LikeLOverLikeBValue >= Log10LikeMinCut
+							&& LogELikeLOverLikeBValue <= LogELikeMaxCut && Log10LikeLOverLikeBValue <= Log10LikeMaxCut)
+							events[Event::event_counter].LastCut++;
+					}
 				}
-			}
 
-			FillHistograms(MonteCarlo[0].histo[i_syst].histo);
+				if (events[Event::event_counter].LastCut == MaxCuts) {
+					// fill pdf
+					FillPdf(0);
+					// fill output ntuple
+					FillOutputNtuple(0);
+				}
+
+				// Count events
+				for(int i=0; i <= events[Event::event_counter].LastCut; ++i) {
+					MonteCarlo[events[Event::event_counter].mc_process].AddSelEvt(i_syst, i);
+					MonteCarlo[events[Event::event_counter].mc_process].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
+					// total background
+					
+					//cout << "Event: " << Event::event_counter << " - Cut: " << i << " - type: " << MonteCarlo[events[Event::event_counter].mc_process].type() << endl;
+					#pragma omp critical
+					if (MonteCarlo[events[Event::event_counter].mc_process].type()==1) {
+						MonteCarlo[0].AddSelEvt(i_syst, i);
+						MonteCarlo[0].AddSelWeightedEvt(i_syst, i, events[Event::event_counter].Weight);
+					}
+				}
+
+				FillHistograms(MonteCarlo[0].histo[i_syst].histo);
+			}
+			Event::event_counter++;
 		}
-		Event::event_counter++;
 	}
 }
