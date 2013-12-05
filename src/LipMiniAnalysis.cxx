@@ -1907,6 +1907,7 @@ void LipMiniAnalysis::Loop() {
 					}
 				}
 
+				#pragma omp critical
 				if (events[Event::event_counter].LastCut == MaxCuts) {
 					// fill pdf
 					FillPdf(0);
