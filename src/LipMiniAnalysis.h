@@ -85,8 +85,6 @@
 
   #define MAX_EVENTS 1000000
 
-  double mW;
-  double mt;
 
 // #############################################################################
 class LipMiniAnalysis {
@@ -145,6 +143,8 @@ public:
 
   // masses
   double mZ;
+  double mW;
+  double mt;
   double mT;
 
   // flags for data
