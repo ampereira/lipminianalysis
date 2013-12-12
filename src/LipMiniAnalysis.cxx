@@ -1542,7 +1542,7 @@ void LipMiniAnalysis::second_DoCuts(){
 }
 
 
-void preKinFit() {
+void LipMiniAnalysis::preKinFit() {
 
 }
 
