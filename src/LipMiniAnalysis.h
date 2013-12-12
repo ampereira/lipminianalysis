@@ -112,8 +112,6 @@ public:
   LipMiniAnalysis();
   virtual ~LipMiniAnalysis();
 
-  virtual void preKinFit();
-
   // To set default and user's values
   void DefaultValues();
   virtual void UserValues();
@@ -287,6 +285,8 @@ public:
   virtual void DoCuts();
   virtual void first_DoCuts();
   virtual void second_DoCuts();
+
+  virtual void preKinFit();
 
   // stuff for histograms
   //TH1D* histo[MaxCuts+1][100];
