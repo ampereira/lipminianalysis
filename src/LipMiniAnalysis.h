@@ -112,6 +112,8 @@ public:
   LipMiniAnalysis();
   virtual ~LipMiniAnalysis();
 
+  virtual void preKinFit();
+
   // To set default and user's values
   void DefaultValues();
   virtual void UserValues();
