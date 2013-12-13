@@ -1870,7 +1870,7 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-
+  /*
 	Event::event_counter = 0;
 	#pragma omp parallel
 	{
@@ -1883,6 +1883,8 @@ void LipMiniAnalysis::Loop() {
 			Event::event_counter++;
 		}
 	}
+  */
+  second_DoCuts();
 
 	Event::event_counter = 0;
 	for (int counter = 0; counter < max; counter++) {
