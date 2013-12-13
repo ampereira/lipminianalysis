@@ -38,6 +38,7 @@ namespace Event {
 
 		Ntu *nTuple;
 
+
 		void FillMuonVec();
 		void FillElectronVec();
 		void FillBTaggedJetVec();
@@ -49,6 +50,7 @@ namespace Event {
 		void TauIsolationDeltaR();
 
 	public:
+		unsigned num_Combs;
 
         //_____objects_____ ttDilepKinFit
 		TLorentzVector 	RecT, RecB, RecWp, RecLepP, RecNeu, RecTbar, RecBbar, RecWn, RecLepN, RecNeubar,

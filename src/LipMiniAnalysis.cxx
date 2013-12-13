@@ -1863,6 +1863,8 @@ void LipMiniAnalysis::Loop() {
 
 					first_DoCuts();
           preKinFit();
+          
+          #pragma omp critical
 					Event::event_counter++;
 				}
 				max++;
