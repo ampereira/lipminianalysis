@@ -1862,6 +1862,7 @@ void LipMiniAnalysis::Loop() {
 						events[Event::event_counter].Weight = events[Event::event_counter].Weight * Luminosity / MonteCarlo[mc_aux].lum();
 
 					first_DoCuts();
+          preKinFit();
 					Event::event_counter++;
 				}
 				max++;
@@ -1869,7 +1870,6 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-  preKinFit();
 
 	Event::event_counter = 0;
 	#pragma omp parallel
