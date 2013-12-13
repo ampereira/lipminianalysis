@@ -1869,7 +1869,7 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-  //preKinFit();
+  preKinFit();
 
 	Event::event_counter = 0;
 	#pragma omp parallel
