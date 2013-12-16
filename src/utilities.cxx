@@ -95,6 +95,7 @@ namespace LIP {
 			return -1;
 	}
 
+
 	#ifdef MIC
 	namespace Phi {
 
@@ -112,7 +113,7 @@ namespace LIP {
 	#endif
 	namespace KinFit {
 		int measurements = 0;
-		int totaltimeKinFit = 0;
+		long long int totaltimeKinFit = 0;
 
 		long long int startTimer (void) {
 			timeval t;
@@ -135,6 +136,8 @@ namespace LIP {
 
 			totaltimeKinFit += end;
 			++measurements;
+
+			return totaltimeKinFit;
 		}
 
 		void printTimer (void) {
