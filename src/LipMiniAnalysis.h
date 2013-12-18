@@ -85,6 +85,7 @@
 
   #define MAX_EVENTS 1000000
 
+  std::vector<Event::EventData> events;
 
 // #############################################################################
 class LipMiniAnalysis {
@@ -98,7 +99,6 @@ public:
 
 
   // VECTOR WITH ALL THE EVENTS
-  std::vector<Event::EventData> events;
 
 //  ostream cout("out");
 
