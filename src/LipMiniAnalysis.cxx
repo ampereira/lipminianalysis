@@ -71,6 +71,7 @@ using std::string ;
 using std::stringstream ;
 
 #include "LipMiniAnalysis.h"
+std::vector<Event::EventData> events;
 
 // #############################################################################
 /*bool LorentzVecComp(TLorentzVectorWFlags a, TLorentzVectorWFlags b) {
