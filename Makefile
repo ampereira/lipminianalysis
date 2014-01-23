@@ -8,7 +8,7 @@ SHELL = /bin/sh
 
 DEFINES = -Dextname
 
-LIB_NAME = LipMiniAnalysis
+LIB_NAME = libLipMiniAnalysis
 
 CXX        = g++
 LD         = g++
@@ -57,14 +57,14 @@ $(BUILD_DIR)/%.d: %.cxx
 $(BUILD_DIR)/%.o: %.cxx
 	$(CXX) -c $(CXXFLAGS) $(INCLUDES) $< -o $@
 
-$(LIB_DIR)/$(LIB_NAME): $(DEPS) $(OBJ)
+$(LIB_DIR)/$(LIB_NAME).a: $(DEPS) $(OBJ)
 	ar -r $@ $(OBJ)
 
 checkdirs:
 	@mkdir -p $(BUILD_DIR)
 	@mkdir -p $(LIB_DIR)
 
-all: checkdirs $(LIB_DIR)/$(LIB_NAME)
+all: checkdirs $(LIB_DIR)/$(LIB_NAME).a
 
 clean:
 	rm -f $(BUILD_DIR)/* $(LIB_DIR)/* 
