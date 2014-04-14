@@ -101,12 +101,9 @@ LipMiniAnalysis::LipMiniAnalysis(){
 //
 // #############################################################################
 
-//  cout = ostream("LipMiniAnalysis.out");
 
-  LipMiniAnalysisVersion = 1.00;
-
-  // stuff for cuts
-  MaxCuts = 1;
+  // Sets default value
+	MaxCuts = 1;
 
 }
 
@@ -150,9 +147,9 @@ void LipMiniAnalysis::DefaultValues() {
   Event::initial_RecoType = 0;
 
   // general stuff
-  OutputFileName = "../Output/summary_LipMiniAnalysis.root";
+  OutputFileName	= "../Output/summary_LipMiniAnalysis.root";
   BackgroundPdfFile = "background_pdf.root";
-  GRLXMLFile = "grl.xml";
+  GRLXMLFile 		= "grl.xml";
   // SignalPdfFiles are defined in DefineSignalPdfSamples()
   Luminosity = 10.;
   Sample = 0;
@@ -276,331 +273,331 @@ void LipMiniAnalysis::CommandLineOptions(int print) {
 
   // define command line options
   static struct option long_options[] = {
-    // user options
-    {"User",                	required_argument, 0, 'a'}, // char[]
+	// user options
+	{"User",                	required_argument, 0, 'a'}, // char[]
 
-    // general stuff
-    {"OutputFileName",      	required_argument, 0, 'b'}, // char[]
-    {"BackgroundPdfFile",   	required_argument, 0, 'c'}, // char[]
-    {"Luminosity",          	required_argument, 0, 'd'},
-    {"Sample",              	required_argument, 0, 'e'}, // int
+	// general stuff
+	{"OutputFileName",      	required_argument, 0, 'b'}, // char[]
+	{"BackgroundPdfFile",   	required_argument, 0, 'c'}, // char[]
+	{"Luminosity",          	required_argument, 0, 'd'},
+	{"Sample",              	required_argument, 0, 'e'}, // int
 
-    // masses
-    {"mZ",                  	required_argument, 0, 'f'}, // * GeV
-    {"mW",                  	required_argument, 0, 'g'}, // * GeV
-    {"mt",                  	required_argument, 0, 'h'}, // * GeV
+	// masses
+	{"mZ",                  	required_argument, 0, 'f'}, // * GeV
+	{"mW",                  	required_argument, 0, 'g'}, // * GeV
+	{"mt",                  	required_argument, 0, 'h'}, // * GeV
 
-    // cuts for electrons
-    {"EtaCutEle",           	required_argument, 0, 'i'},
-    {"PtCutEle",            	required_argument, 0, 'j'}, // * GeV
-    {"IsoCutEle",           	required_argument, 0, 'k'},
-    {"RemoveElCrack",       	required_argument, 0, 'l'}, // int
+	// cuts for electrons
+	{"EtaCutEle",           	required_argument, 0, 'i'},
+	{"PtCutEle",            	required_argument, 0, 'j'}, // * GeV
+	{"IsoCutEle",           	required_argument, 0, 'k'},
+	{"RemoveElCrack",       	required_argument, 0, 'l'}, // int
 
-    // cuts for muons
-    {"EtaCutMuo",           	required_argument, 0, '1'},
-    {"PtCutMuo",            	required_argument, 0, '2'}, // * GeV
-    {"IsoCutMuo",           	required_argument, 0, '3'},
+	// cuts for muons
+	{"EtaCutMuo",           	required_argument, 0, '1'},
+	{"PtCutMuo",            	required_argument, 0, '2'}, // * GeV
+	{"IsoCutMuo",           	required_argument, 0, '3'},
 
-    // cuts for photons
-    {"EtaCutPho",           	required_argument, 0, 'm'},
-    {"PtCutPho",            	required_argument, 0, 'n'}, // * GeV
-    {"IsoCutPho",           	required_argument, 0, 'o'},
+	// cuts for photons
+	{"EtaCutPho",           	required_argument, 0, 'm'},
+	{"PtCutPho",            	required_argument, 0, 'n'}, // * GeV
+	{"IsoCutPho",           	required_argument, 0, 'o'},
 
-    // cuts for jets
-    {"EtaCutJet",           	required_argument, 0, 'p'},
-    {"PtCutJet",            	required_argument, 0, 'q'}, // * GeV
-    {"IsoCutJet",           	required_argument, 0, 'r'},
+	// cuts for jets
+	{"EtaCutJet",           	required_argument, 0, 'p'},
+	{"PtCutJet",            	required_argument, 0, 'q'}, // * GeV
+	{"IsoCutJet",           	required_argument, 0, 'r'},
 
-    // jet energy calibration? and btag cut; both for fullsim topview >= 12-13
-    {"LightJetCalib",       	required_argument, 0, 's'},
-    {"BJetCalib",           	required_argument, 0, 't'},
-    {"BTagCut",             	required_argument, 0, 'u'},
+	// jet energy calibration? and btag cut; both for fullsim topview >= 12-13
+	{"LightJetCalib",       	required_argument, 0, 's'},
+	{"BJetCalib",           	required_argument, 0, 't'},
+	{"BTagCut",             	required_argument, 0, 'u'},
 
-    // discriminant analysis
-    {"DoLike",              	required_argument, 0, 'v'}, // int
-    {"LogELikeMinCut",      	required_argument, 0, 'w'},
-    {"LogELikeMaxCut",      	required_argument, 0, 'x'},
-    {"Log10LikeMinCut",     	required_argument, 0, 'y'},
-    {"Log10LikeMaxCut",     	required_argument, 0, 'z'},
+	// discriminant analysis
+	{"DoLike",              	required_argument, 0, 'v'}, // int
+	{"LogELikeMinCut",      	required_argument, 0, 'w'},
+	{"LogELikeMaxCut",      	required_argument, 0, 'x'},
+	{"Log10LikeMinCut",     	required_argument, 0, 'y'},
+	{"Log10LikeMaxCut",     	required_argument, 0, 'z'},
 
-    // overlap of jets with photons and taus
-    {"JetOverlap",          	required_argument, 0, 'A'}, // int
+	// overlap of jets with photons and taus
+	{"JetOverlap",          	required_argument, 0, 'A'}, // int
 
-    {"GRLXMLFile",          	required_argument, 0, 'B'}, // char[]
+	{"GRLXMLFile",          	required_argument, 0, 'B'}, // char[]
 
-    {"isData",              	required_argument, 0, 'C'}, // int
-    {"doGoodObjSelection",  	required_argument, 0, 'D'}, // int
+	{"isData",              	required_argument, 0, 'C'}, // int
+	{"doGoodObjSelection",  	required_argument, 0, 'D'}, // int
 
-    {"isQCDantie",          	required_argument, 0, 'E'}, // int
-    {"isQCDmmm",      	    	required_argument, 0, 'F'}, // int
-    {"data_e_periodC",      	required_argument, 0, 'G'}, // int
-    {"data_e_periodD",      	required_argument, 0, 'H'}, // int
-    {"data_e_periodE",      	required_argument, 0, 'I'}, // int
-    {"data_e_periodF",      	required_argument, 0, 'J'}, // int
+	{"isQCDantie",          	required_argument, 0, 'E'}, // int
+	{"isQCDmmm",      	    	required_argument, 0, 'F'}, // int
+	{"data_e_periodC",      	required_argument, 0, 'G'}, // int
+	{"data_e_periodD",      	required_argument, 0, 'H'}, // int
+	{"data_e_periodE",      	required_argument, 0, 'I'}, // int
+	{"data_e_periodF",      	required_argument, 0, 'J'}, // int
 
-    {"isPretag",            	required_argument, 0, 'K'}, // int
-    {"data_m_periodB",      	required_argument, 0, 'L'}, // int
-    {"data_m_periodC",      	required_argument, 0, 'M'}, // int
-    {"data_m_periodD",      	required_argument, 0, 'N'}, // int
-    {"data_m_periodE",      	required_argument, 0, 'O'}, // int
-    {"data_m_periodF",      	required_argument, 0, 'P'}, // int
-    {"subperiod",           	required_argument, 0, 'Q'}, // int
+	{"isPretag",            	required_argument, 0, 'K'}, // int
+	{"data_m_periodB",      	required_argument, 0, 'L'}, // int
+	{"data_m_periodC",      	required_argument, 0, 'M'}, // int
+	{"data_m_periodD",      	required_argument, 0, 'N'}, // int
+	{"data_m_periodE",      	required_argument, 0, 'O'}, // int
+	{"data_m_periodF",      	required_argument, 0, 'P'}, // int
+	{"subperiod",           	required_argument, 0, 'Q'}, // int
    
 
-    {"data_e_periodA_F",    	required_argument, 0, 'R'}, // int
-    {"data_e_periodG_H",    	required_argument, 0, 'S'}, // int
-    {"data_m_periodA_F",    	required_argument, 0, 'T'}, // int
-    {"data_m_periodG_H",    	required_argument, 0, 'U'}, // int
+	{"data_e_periodA_F",    	required_argument, 0, 'R'}, // int
+	{"data_e_periodG_H",    	required_argument, 0, 'S'}, // int
+	{"data_m_periodA_F",    	required_argument, 0, 'T'}, // int
+	{"data_m_periodG_H",    	required_argument, 0, 'U'}, // int
 
-    {"data_e_periodI",      	required_argument, 0, 'V'}, // int
-    {"SetSystematicsFileName",  required_argument, 0, 'W'}, // char[]
-    {"data_m_periodI",      	required_argument, 0, 'X'}, // int
+	{"data_e_periodI",      	required_argument, 0, 'V'}, // int
+	{"SetSystematicsFileName",  required_argument, 0, 'W'}, // char[]
+	{"data_m_periodI",      	required_argument, 0, 'X'}, // int
 
-    // Options for different reconstruction of objets within the same ntuples
-    {"RecoType",            	required_argument, 0, 'Z'}, // int
+	// Options for different reconstruction of objets within the same ntuples
+	{"RecoType",            	required_argument, 0, 'Z'}, // int
 
-    // Terminate the array with an element containing all zeros.
-    {0, 0, 0, 0}
+	// Terminate the array with an element containing all zeros.
+	{0, 0, 0, 0}
   };
 
   // process command line options
   optind = 1; // trick to process several times with getopt or getopt_long
   int c;
   while (1) {
-    int o = 0;
-    int option_index = 0;
-    c = getopt_long (argc, argv, "a:b:c:d:e:f:g:h:i:j:k:l:1:2:3:m:n:o:p:q:r:s:t:u:v:w:x:y:z:A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P", long_options, &option_index);
+	int o = 0;
+	int option_index = 0;
+	c = getopt_long (argc, argv, "a:b:c:d:e:f:g:h:i:j:k:l:1:2:3:m:n:o:p:q:r:s:t:u:v:w:x:y:z:A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P", long_options, &option_index);
 
 
-    // Detect the end of the options.
-    if (c == -1) break;
+	// Detect the end of the options.
+	if (c == -1) break;
 
-    // process each option
-    switch (c) {
-      case 'a':
-        UserCommandLineOptions(optarg,print);
-        break;
-      case 'b':
-        OutputFileName=optarg;
-        o = 1;
-        break;
-      case 'c':
-        BackgroundPdfFile = optarg;
-        o = 1;
-        break;
-      case 'd':
-        Luminosity = atof(optarg);
-        o = 1;
-        break;
-      case 'e':
-        Sample = atoi(optarg);
-        o = 1;
-        break;
-      case 'f':
-        mZ = atof(optarg)*GeV;
-        o = 1;
-        break;
-      case 'g':
-        mW = atof(optarg)*GeV;
-        o = 1;
-        break;
-      case 'h':
-        mt = atof(optarg)*GeV;
-        o = 1;
-        break;
-      case 'i':
-        EtaCutEle = atof(optarg);
-        o = 1;
-        break;
-      case 'j':
-        Event::initial_PtCutEle = atof(optarg)*GeV;
-        o = 1;
-        break;
-      case 'k':
-        IsoCutEle = atof(optarg);
-        o = 1;
-        break;
-      case 'l':
-        RemoveElCrack = atoi(optarg);
-        o = 1;
-        break;
-      case '1':
-        EtaCutMuo = atof(optarg);
-        o = 1;
-        break;
-      case '2':
-        Event::initial_PtCutMuo = atof(optarg)*GeV;
-        o = 1;
-        break;
-      case '3':
-        IsoCutMuo = atof(optarg);
-        o = 1;
-        break;
-      case 'm':
-        EtaCutPho = atof(optarg);
-        o = 1;
-        break;
-      case 'n':
-        PtCutPho = atof(optarg)*GeV;
-        o = 1;
-        break;
-      case 'o':
-        IsoCutPho = atof(optarg);
-        o = 1;
-        break;
-      case 'p':
-        EtaCutJet = atof(optarg);
-        o = 1;
-        break;
-      case 'q':
-        Event::initial_PtCutJet = atof(optarg)*GeV;
-        o = 1;
-        break;
-      case 'r':
-        IsoCutJet = atof(optarg);
-        o = 1;
-        break;
-      case 's':
-        Event::initial_LightJetCalib = atof(optarg);
-        o = 1;
-        break;
-      case 't':
-        Event::initial_BJetCalib = atof(optarg);
-        o = 1;
-        break;
-      case 'u':
-        Event::initial_BTagCut = atof(optarg);
-        o = 1;
-        break;
-      case 'v':
-        DoLike = atoi(optarg);
-        o = 1;
-        break;
-      case 'w':
-        LogELikeMinCut = atof(optarg);
-        o = 1;
-        break;
-      case 'x':
-        LogELikeMaxCut = atof(optarg);
-        o = 1;
-        break;
-      case 'y':
-        Log10LikeMinCut = atof(optarg);
-        o = 1;
-        break;
-      case 'z':
-        Log10LikeMaxCut = atof(optarg);
-        o = 1;
-        break;
-      case 'A':
-        events[Event::event_counter].JetOverlap = atoi(optarg);
-        o = 1;
-        break;
-      case 'B':
-        GRLXMLFile = optarg;
-        o = 1;
-        break;
-      case 'C':
-        isData = atoi(optarg);
-        o = 1;
-        break;
-      case 'D':
-        doGoodObjSelection = atoi(optarg);
-        o = 1;
-        break;
-      case 'E':
-        isQCDantie = atoi(optarg);
-        o = 1;
-        break;
-      case 'F':
-        isQCDmmm = atoi(optarg);
-        o = 1;
-        break;
-      case 'G':
-        data_e_periodC = atoi(optarg);
-        o = 1;
-        break;
-      case 'H':
-        data_e_periodD = atoi(optarg);
-        o = 1;
-        break;
-      case 'I':
-        data_e_periodE = atoi(optarg);
-        o = 1;
-        break;
-      case 'J':
-        data_e_periodF = atoi(optarg);
-        o = 1;
-        break;
-      case 'K':
-        isPretag = atoi(optarg);
-        o = 1;
-        break;
-      case 'L':
-        data_m_periodB = atoi(optarg);
-        o = 1;
-        break;
-      case 'M':
-        data_m_periodC = atoi(optarg);
-        o = 1;
-        break;
-      case 'N':
-        data_m_periodD = atoi(optarg);
-        o = 1;
-        break;
-      case 'O':
-        data_m_periodE = atoi(optarg);
-        o = 1;
-        break;
-      case 'P':
-        data_m_periodF = atoi(optarg);
-        o = 1;
-        break;
-      case 'Q':
-        subperiod = atoi(optarg);
-        o = 1;
-        break;
-      case 'R':
-         data_e_periodA_F = atoi(optarg);
-        o = 1;
-        break;
-      case 'S':
-         data_e_periodG_H = atoi(optarg);
-        o = 1;
-        break;
-      case 'T':
-         data_m_periodA_F = atoi(optarg);
-        o = 1;
-        break;
-      case 'U':
-         data_m_periodG_H = atoi(optarg);
-        o = 1;
-        break;
-      case 'V':
-         data_e_periodI = atoi(optarg);
-        o = 1;
-        break;
-      case 'W':
-        SetSystematicsFileName = optarg;
-        o = 1;
-        break;
-      case 'X':
-         data_m_periodI = atoi(optarg);
-        o = 1;
-        break;
-      case 'Z':
-        Event::initial_RecoType = atoi(optarg);
-        o = 1;
-        break;
-      case '?':
-        /* getopt_long already printed an error message. */
-        break;
-      default:
-        abort ();
-    }
-    
-    if (o==1 && print==1)
-     cout << "  " << long_options[option_index].name <<" = " <<  optarg << endl;
+	// process each option
+	switch (c) {
+	  case 'a':
+		UserCommandLineOptions(optarg,print);
+		break;
+	  case 'b':
+		OutputFileName=optarg;
+		o = 1;
+		break;
+	  case 'c':
+		BackgroundPdfFile = optarg;
+		o = 1;
+		break;
+	  case 'd':
+		Luminosity = atof(optarg);
+		o = 1;
+		break;
+	  case 'e':
+		Sample = atoi(optarg);
+		o = 1;
+		break;
+	  case 'f':
+		mZ = atof(optarg)*GeV;
+		o = 1;
+		break;
+	  case 'g':
+		mW = atof(optarg)*GeV;
+		o = 1;
+		break;
+	  case 'h':
+		mt = atof(optarg)*GeV;
+		o = 1;
+		break;
+	  case 'i':
+		EtaCutEle = atof(optarg);
+		o = 1;
+		break;
+	  case 'j':
+		Event::initial_PtCutEle = atof(optarg)*GeV;
+		o = 1;
+		break;
+	  case 'k':
+		IsoCutEle = atof(optarg);
+		o = 1;
+		break;
+	  case 'l':
+		RemoveElCrack = atoi(optarg);
+		o = 1;
+		break;
+	  case '1':
+		EtaCutMuo = atof(optarg);
+		o = 1;
+		break;
+	  case '2':
+		Event::initial_PtCutMuo = atof(optarg)*GeV;
+		o = 1;
+		break;
+	  case '3':
+		IsoCutMuo = atof(optarg);
+		o = 1;
+		break;
+	  case 'm':
+		EtaCutPho = atof(optarg);
+		o = 1;
+		break;
+	  case 'n':
+		PtCutPho = atof(optarg)*GeV;
+		o = 1;
+		break;
+	  case 'o':
+		IsoCutPho = atof(optarg);
+		o = 1;
+		break;
+	  case 'p':
+		EtaCutJet = atof(optarg);
+		o = 1;
+		break;
+	  case 'q':
+		Event::initial_PtCutJet = atof(optarg)*GeV;
+		o = 1;
+		break;
+	  case 'r':
+		IsoCutJet = atof(optarg);
+		o = 1;
+		break;
+	  case 's':
+		Event::initial_LightJetCalib = atof(optarg);
+		o = 1;
+		break;
+	  case 't':
+		Event::initial_BJetCalib = atof(optarg);
+		o = 1;
+		break;
+	  case 'u':
+		Event::initial_BTagCut = atof(optarg);
+		o = 1;
+		break;
+	  case 'v':
+		DoLike = atoi(optarg);
+		o = 1;
+		break;
+	  case 'w':
+		LogELikeMinCut = atof(optarg);
+		o = 1;
+		break;
+	  case 'x':
+		LogELikeMaxCut = atof(optarg);
+		o = 1;
+		break;
+	  case 'y':
+		Log10LikeMinCut = atof(optarg);
+		o = 1;
+		break;
+	  case 'z':
+		Log10LikeMaxCut = atof(optarg);
+		o = 1;
+		break;
+	  case 'A':
+		events[Event::event_counter].JetOverlap = atoi(optarg);
+		o = 1;
+		break;
+	  case 'B':
+		GRLXMLFile = optarg;
+		o = 1;
+		break;
+	  case 'C':
+		isData = atoi(optarg);
+		o = 1;
+		break;
+	  case 'D':
+		doGoodObjSelection = atoi(optarg);
+		o = 1;
+		break;
+	  case 'E':
+		isQCDantie = atoi(optarg);
+		o = 1;
+		break;
+	  case 'F':
+		isQCDmmm = atoi(optarg);
+		o = 1;
+		break;
+	  case 'G':
+		data_e_periodC = atoi(optarg);
+		o = 1;
+		break;
+	  case 'H':
+		data_e_periodD = atoi(optarg);
+		o = 1;
+		break;
+	  case 'I':
+		data_e_periodE = atoi(optarg);
+		o = 1;
+		break;
+	  case 'J':
+		data_e_periodF = atoi(optarg);
+		o = 1;
+		break;
+	  case 'K':
+		isPretag = atoi(optarg);
+		o = 1;
+		break;
+	  case 'L':
+		data_m_periodB = atoi(optarg);
+		o = 1;
+		break;
+	  case 'M':
+		data_m_periodC = atoi(optarg);
+		o = 1;
+		break;
+	  case 'N':
+		data_m_periodD = atoi(optarg);
+		o = 1;
+		break;
+	  case 'O':
+		data_m_periodE = atoi(optarg);
+		o = 1;
+		break;
+	  case 'P':
+		data_m_periodF = atoi(optarg);
+		o = 1;
+		break;
+	  case 'Q':
+		subperiod = atoi(optarg);
+		o = 1;
+		break;
+	  case 'R':
+		 data_e_periodA_F = atoi(optarg);
+		o = 1;
+		break;
+	  case 'S':
+		 data_e_periodG_H = atoi(optarg);
+		o = 1;
+		break;
+	  case 'T':
+		 data_m_periodA_F = atoi(optarg);
+		o = 1;
+		break;
+	  case 'U':
+		 data_m_periodG_H = atoi(optarg);
+		o = 1;
+		break;
+	  case 'V':
+		 data_e_periodI = atoi(optarg);
+		o = 1;
+		break;
+	  case 'W':
+		SetSystematicsFileName = optarg;
+		o = 1;
+		break;
+	  case 'X':
+		 data_m_periodI = atoi(optarg);
+		o = 1;
+		break;
+	  case 'Z':
+		Event::initial_RecoType = atoi(optarg);
+		o = 1;
+		break;
+	  case '?':
+		/* getopt_long already printed an error message. */
+		break;
+	  default:
+		abort ();
+	}
+	
+	if (o==1 && print==1)
+	 cout << "  " << long_options[option_index].name <<" = " <<  optarg << endl;
   }
 }
 
@@ -627,35 +624,34 @@ void LipMiniAnalysis::SetSystematics() {
   SystName.clear();
 
   if (SetSystematicsFileName!="") {
-    ifstream f;
-    f.open(SetSystematicsFileName.c_str());
-    if (!f) {
-      cerr << "  Error: it wasnt possible to open " << SetSystematicsFileName << " which sets Output Directories and Normal or Systematic studies" << endl;   
-      exit(1);
-    }
-    // reads file line by line
-    string Linha;
-    Int_t recotype;
-    string nomesys;
-    while (getline(f, Linha)) {
-      // process lines
-      stringstream sLinha;
-      sLinha << Linha;
-      sLinha >> recotype >> nomesys;
-      Syst.push_back(recotype);
-      SystName.push_back(nomesys);
-    }
-    if (Syst.size()==0) {
-      cerr << "  Error: it wasnt possible to open " << SetSystematicsFileName << " which sets Output Directories and Normal or Systematic studies" << endl;   
-      exit(1);      
-    }
+	ifstream f;
+	f.open(SetSystematicsFileName.c_str());
+	if (!f) {
+	  cerr << "  Error: it wasnt possible to open " << SetSystematicsFileName << " which sets Output Directories and Normal or Systematic studies" << endl;   
+	  exit(1);
+	}
+	// reads file line by line
+	string Linha;
+	Int_t recotype;
+	string nomesys;
+	while (getline(f, Linha)) {
+	  // process lines
+	  stringstream sLinha;
+	  sLinha << Linha;
+	  sLinha >> recotype >> nomesys;
+	  Syst.push_back(recotype);
+	  SystName.push_back(nomesys);
+	}
+	if (Syst.size()==0) {
+	  cerr << "  Error: it wasnt possible to open " << SetSystematicsFileName << " which sets Output Directories and Normal or Systematic studies" << endl;   
+	  exit(1);      
+	}
   } else {  
-    Syst.push_back(0); SystName.push_back("../Output/");
+	Syst.push_back(0); SystName.push_back("../Output/");
   }
 
 }
 
-    char localfilename[400];
 // #############################################################################
 void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 // #############################################################################
@@ -695,7 +691,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
   // .....comment the two lines below if you would like to have the output writen to screen
   //freopen(LogName, "w", stdout);
-  freopen(ErrName, "w", stderr);
+  //freopen(ErrName, "w", stderr);
 
   // Prints logo
   cout << endl;
@@ -712,8 +708,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   cout << "                                                                              " << endl;
   cout << " #################################################################################" << endl;
   cout << "                                                                              " << endl;
-  cout << "   LipMiniAnalysis " << std::dec << std::fixed << std::right << std::setw(5)
-    << std::setprecision(2) << LipMiniAnalysisVersion << endl;
+  cout << "   LipMiniAnalysis "  << LIPMINIANALYSIS_VERSION << endl;
   cout << "                                                                              " << endl;
   cout << "                                              \\      | | / |  /    |   |  ||  " << endl;
   cout << "                                               '-___-+-+'  |_/     |   |  |   " << endl;
@@ -761,11 +756,11 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   if (DoLike) ++MaxCuts;
 
   if (isData==0){
-     TMonteCarlo mc_tot(0, -1, 1, 1, "Total MC", MaxCuts);
-     MonteCarlo.push_back(mc_tot);
+	 TMonteCarlo mc_tot(0, -1, 1, 1, "Total MC", MaxCuts);
+	 MonteCarlo.push_back(mc_tot);
   }else{
-     TMonteCarlo data_tot(0, -1, 1, 1, "Total data", MaxCuts);
-     MonteCarlo.push_back(data_tot);
+	 TMonteCarlo data_tot(0, -1, 1, 1, "Total data", MaxCuts);
+	 MonteCarlo.push_back(data_tot);
   }
 
   cout << endl;
@@ -780,44 +775,44 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
   cout << "Will run for the following ref/systematics:" << endl;
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst)
-    cout << " " << Syst[i_syst] << " " << SystName[i_syst] << endl;
+	cout << " " << Syst[i_syst] << " " << SystName[i_syst] << endl;
 
   cout << endl;
   cout << " #################################################################################" << endl;
   cout << endl;
 
   if(isData==1){
-    cout << " GRL Information Directly from Mini Ntuple " << endl;
+	cout << " GRL Information Directly from Mini Ntuple " << endl;
   }
 
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-    // book histograms (just for total MC/data)
-    Event::initial_RecoType=Syst[i_syst];
-    OutputFile[i_syst]->cd();
-    THisto histos;
-    MonteCarlo[0].histo.push_back(histos);
-    BookHistograms(MonteCarlo[0].histo[i_syst].histo);
-    // prepare counters of events (all MC/data samples)
-    for (Int_t mc=0; mc<MonteCarlo.size(); ++mc) {
-      MonteCarlo[mc].p_nSelEvt.push_back(std::vector<Double_t>());  
-      MonteCarlo[mc].p_nSelWeightedEvt.push_back(std::vector<Double_t>());  
-      MonteCarlo[mc].p_nSelWeightedEvtErr.push_back(std::vector<Double_t>());  
-      for (int i=0; i <= MaxCuts; ++i) {
-        MonteCarlo[mc].p_nSelEvt[i_syst].push_back(0.);
-        MonteCarlo[mc].p_nSelWeightedEvt[i_syst].push_back(0.);
-        MonteCarlo[mc].p_nSelWeightedEvtErr[i_syst].push_back(0.);
-      }
-    }
+	// book histograms (just for total MC/data)
+	Event::initial_RecoType=Syst[i_syst];
+	OutputFile[i_syst]->cd();
+	THisto histos;
+	MonteCarlo[0].histo.push_back(histos);
+	BookHistograms(MonteCarlo[0].histo[i_syst].histo);
+	// prepare counters of events (all MC/data samples)
+	for (Int_t mc=0; mc<MonteCarlo.size(); ++mc) {
+	  MonteCarlo[mc].p_nSelEvt.push_back(std::vector<Double_t>());  
+	  MonteCarlo[mc].p_nSelWeightedEvt.push_back(std::vector<Double_t>());  
+	  MonteCarlo[mc].p_nSelWeightedEvtErr.push_back(std::vector<Double_t>());  
+	  for (int i=0; i <= MaxCuts; ++i) {
+		MonteCarlo[mc].p_nSelEvt[i_syst].push_back(0.);
+		MonteCarlo[mc].p_nSelWeightedEvt[i_syst].push_back(0.);
+		MonteCarlo[mc].p_nSelWeightedEvtErr[i_syst].push_back(0.);
+	  }
+	}
   }
   OutputFile[0]->cd();
 
   // book pdf histos
   TDirectory *dir = gDirectory;
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-    OutputFile[i_syst]->cd();
-    std::vector<TH1D*> vec;
-    PdfVec.push_back(vec);
-    BookPdfHistos(i_syst);
+	OutputFile[i_syst]->cd();
+	std::vector<TH1D*> vec;
+	PdfVec.push_back(vec);
+	BookPdfHistos(i_syst);
   }
   dir->cd();
 
@@ -827,17 +822,17 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   // book likelihood histos
   ThisEventPdfValues.resize(PdfVec[0].size());
   if (DoLike) {
-    DefineSignalPdfSamples();
-    ReadPdf();
+	DefineSignalPdfSamples();
+	ReadPdf();
 
-    cout << endl;
-    cout << " #################################################################################" << endl;
-    cout << endl;
+	cout << endl;
+	cout << " #################################################################################" << endl;
+	cout << endl;
   }
 
   if (DoLike) {
-    BookLikeHistos();
-    ProcessBookLikeHistos();
+	BookLikeHistos();
+	ProcessBookLikeHistos();
   }
 
   // dummy canvas to suppress some root warnings
@@ -846,148 +841,148 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   // loop over files
   for (int f=0; f < Input.size(); ++f) {
 
-    // time
-    time_t rawtimeD;
-    time(&rawtimeD);
+	// time
+	time_t rawtimeD;
+	time(&rawtimeD);
 
-    cout << "  Next file: " << Input.Name(f) << endl;
+	cout << "  Next file: " << Input.Name(f) << endl;
 //    cout << "    ntuple is of type " << Input.Type(f) << endl;
 
-    // declare nTuple type
-    if (Input.Type(f) == "MiniTTHReader") {
+	// declare nTuple type
+	if (Input.Type(f) == "MiniTTHReader") {
 
-      for (int thread = 0; thread < number_of_threads; ++thread){
-      	Ntu *aux;
-      	aux = new MiniTTHReader (isData);
-        nTuple.push_back(aux);
-      }
-    } else {
-      cout << "  nTuple is of unknown type: " << Input.Type(f) << " " << endl;
-      exit(0); 
-    }
+	  for (int thread = 0; thread < number_of_threads; ++thread){
+		Ntu *aux;
+		aux = new MiniTTHReader (isData);
+		nTuple.push_back(aux);
+	  }
+	} else {
+	  cout << "  nTuple is of unknown type: " << Input.Type(f) << " " << endl;
+	  exit(0); 
+	}
 
-    // time
-    time_t rawtimeA;
-    time(&rawtimeA);
-    cout << "  Initializing time was " << difftime(rawtimeA, rawtimeD) << " s " << endl;
-    cout << endl;
+	// time
+	time_t rawtimeA;
+	time(&rawtimeA);
+	cout << "  Initializing time was " << difftime(rawtimeA, rawtimeD) << " s " << endl;
+	cout << endl;
 
-    // opening a file stored in a lustre system is very slow in root if lustre 
-    // is overloaded, so check if it is possible to copy the root file to 
-    // memory or temporary disc space.
+	// opening a file stored in a lustre system is very slow in root if lustre 
+	// is overloaded, so check if it is possible to copy the root file to 
+	// memory or temporary disc space.
 
-    Int_t UseTempFile=0;
-    //char localfilename[400];
+	Int_t UseTempFile=0;
+	//char localfilename[400];
 
 // comentar daqui para baixo
-    TRandom3 r(0);
-    long int insize;
-    struct statvfs buf;
-    char dirtmp[200];
-    long int freespace;
-    Int_t error;
+	TRandom3 r(0);
+	long int insize;
+	struct statvfs buf;
+	char dirtmp[200];
+	long int freespace;
+	Int_t error;
 
-    // open original file and check its size
-    std::ifstream infile(Input.Name(f).c_str(), std::ios_base::binary|std::ios::ate);
-    insize = (long int) infile.tellg();
-    printf("Size of Original File: %ld\n", insize);
+	// open original file and check its size
+	std::ifstream infile(Input.Name(f).c_str(), std::ios_base::binary|std::ios::ate);
+	insize = (long int) infile.tellg();
+	printf("Size of Original File: %ld\n", insize);
 
-    // try to copy th original file to /dev/shm, $TMPDIR or /tmp
-    for (Int_t i=0; i<3; ++i) {
-      if (i==0) sprintf(dirtmp, "/dev/shm");
-      else if (i==1) {
-        char * envtmpdir = getenv("TMPDIR");
-        // if TMPDIR isn't defined then go to next iteraction (use /tmp)
-        if (envtmpdir==NULL) continue;
-        sprintf(dirtmp, "%s", envtmpdir);
-      } else if (i==2) sprintf(dirtmp, "/tmp");
+	// try to copy th original file to /dev/shm, $TMPDIR or /tmp
+	for (Int_t i=0; i<3; ++i) {
+	  if (i==0) sprintf(dirtmp, "/dev/shm");
+	  else if (i==1) {
+		char * envtmpdir = getenv("TMPDIR");
+		// if TMPDIR isn't defined then go to next iteraction (use /tmp)
+		if (envtmpdir==NULL) continue;
+		sprintf(dirtmp, "%s", envtmpdir);
+	  } else if (i==2) sprintf(dirtmp, "/tmp");
 
-      // check free space (it also checks for dirtmp existence)
-      freespace = -1;
-      if ((statvfs(dirtmp, &buf))==0) freespace = buf.f_bfree*buf.f_bsize;
-      printf("Free Space in %s: %ld\n", dirtmp, freespace);
-      if (freespace<insize) continue;
+	  // check free space (it also checks for dirtmp existence)
+	  freespace = -1;
+	  if ((statvfs(dirtmp, &buf))==0) freespace = buf.f_bfree*buf.f_bsize;
+	  printf("Free Space in %s: %ld\n", dirtmp, freespace);
+	  if (freespace<insize) continue;
 
-      // create local file
-      sprintf(localfilename, "%s/LipMiniAnalysisTempFile%010.0f", dirtmp, r.Rndm()*1e10);
-      std::ofstream outfile(localfilename, std::ios_base::binary);
+	  // create local file
+	  sprintf(localfilename, "%s/LipMiniAnalysisTempFile%010.0f", dirtmp, r.Rndm()*1e10);
+	  std::ofstream outfile(localfilename, std::ios_base::binary);
 
-      // return to begin of original file
-      infile.seekg(0, std::ios::beg);
+	  // return to begin of original file
+	  infile.seekg(0, std::ios::beg);
 
-      // copy files
-      outfile << infile.rdbuf();
+	  // copy files
+	  outfile << infile.rdbuf();
 
-      // check errors
-      if (!outfile.good()) {
-        printf("Copy File Error!\n");
-        error=1;
-      } else error=0;
+	  // check errors
+	  if (!outfile.good()) {
+		printf("Copy File Error!\n");
+		error=1;
+	  } else error=0;
 
-      // close files
-      infile.close();
-      outfile.close();
+	  // close files
+	  infile.close();
+	  outfile.close();
 
-      // check size of local file
-      std::ifstream outtestfile(localfilename, std::ios_base::binary|std::ios::ate);
-      long int outtestsize = (long int) outtestfile.tellg();
-      printf("Copy Size : %ld\n", outtestsize);
+	  // check size of local file
+	  std::ifstream outtestfile(localfilename, std::ios_base::binary|std::ios::ate);
+	  long int outtestsize = (long int) outtestfile.tellg();
+	  printf("Copy Size : %ld\n", outtestsize);
 
-      // close file
-      outtestfile.close();
+	  // close file
+	  outtestfile.close();
 
-      // test file sizes
-      // if original and local file have the same size then we are done
-      // (we should compare them byte by byte, but that takes time...)
-      if (outtestsize==insize && !error) {
-        UseTempFile = 1;
-        break;
-      } else {
-        printf("Removing Error Local File: %s\n", localfilename);
-        std::remove(localfilename);
-      }
-    }
+	  // test file sizes
+	  // if original and local file have the same size then we are done
+	  // (we should compare them byte by byte, but that takes time...)
+	  if (outtestsize==insize && !error) {
+		UseTempFile = 1;
+		break;
+	  } else {
+		printf("Removing Error Local File: %s\n", localfilename);
+		std::remove(localfilename);
+	  }
+	}
 
-    // time
-    time_t rawtimeC;
-    time(&rawtimeC);
-    cout << "  Read time was " << difftime(rawtimeC, rawtimeA) << " s " << endl;
-    cout << "  Speed was " << insize/difftime(rawtimeC, rawtimeA) << " B/s " << endl;
+	// time
+	time_t rawtimeC;
+	time(&rawtimeC);
+	cout << "  Read time was " << difftime(rawtimeC, rawtimeA) << " s " << endl;
+	cout << "  Speed was " << insize/difftime(rawtimeC, rawtimeA) << " B/s " << endl;
 // comentar daqui para cima e comentar o std::remove(localfilename); !!!
 
-    // use original file in case of problems
-    if (!UseTempFile) sprintf(localfilename, "%s", Input.Name(f).c_str());
+	// use original file in case of problems
+	if (!UseTempFile) sprintf(localfilename, "%s", Input.Name(f).c_str());
 
-    // open nTuple
-    //nTuple->Input((char *)Input.Name(f).c_str());
-    for (int thread = 0; thread < number_of_threads; ++thread)
-    {
-      nTuple[thread]->Input(localfilename);
-      nTuple[thread]->Init();
-    }
-    DefaultValues();
-    UserValues();
-    CommandLineOptions(0);
+	// open nTuple
+	//nTuple->Input((char *)Input.Name(f).c_str());
+	for (int thread = 0; thread < number_of_threads; ++thread)
+	{
+	  nTuple[thread]->Input(localfilename);
+	  nTuple[thread]->Init();
+	}
+	DefaultValues();
+	UserValues();
+	CommandLineOptions(0);
 
-    // loop over events
-    Loop();
+	// loop over events
+	Loop();
 
-    // close file
+	// close file
    // for (int thread = 0; thread < number_of_threads; ++thread)
-    //delete nTuple;
+	//delete nTuple;
 
-    // remove localfile
-    printf("Used File: %s\n", localfilename);
-    if (UseTempFile) {
-      printf("Error File Removing: %s\n", localfilename);
-      std::remove(localfilename);
-    }
+	// remove localfile
+	printf("Used File: %s\n", localfilename);
+	if (UseTempFile) {
+	  printf("Error File Removing: %s\n", localfilename);
+	  std::remove(localfilename);
+	}
 
-    // time
-    time_t rawtimeB;
-    time(&rawtimeB);
-    cout << "  Partial time was " << difftime(rawtimeB, rawtimeA) << " s " << endl;
-    cout << endl;
+	// time
+	time_t rawtimeB;
+	time(&rawtimeB);
+	cout << "  Partial time was " << difftime(rawtimeB, rawtimeA) << " s " << endl;
+	cout << endl;
   }
 
   // delete dummy canvas
@@ -995,33 +990,33 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
    //...Compute errors for total background
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-    for(int j = 0; j <= MaxCuts; j++) {
-      double err = 0.;
-      for(int i=1; i < MonteCarlo.size(); i++) {
+	for(int j = 0; j <= MaxCuts; j++) {
+	  double err = 0.;
+	  for(int i=1; i < MonteCarlo.size(); i++) {
 //        if (MonteCarlo[i].type()==1 && MonteCarlo[i].nSelEvt(0)>0) {
 //
 //        // just for backgrounds with events!!!
 //        if (MonteCarlo[i].type()==1 && MonteCarlo[i].nSelEvt(j)>0) {
-        // considering also backgrounds without events for the error evaluation:
-        if (MonteCarlo[i].type()==1) {
-          err += MonteCarlo[i].nSelWeightedEvtErr(i_syst, j)*MonteCarlo[i].nSelWeightedEvtErr(i_syst, j);
-        }
-      }
-      MonteCarlo[0].SetnSelWeightedEvtErr(i_syst, j,sqrt(err));
-    }
+		// considering also backgrounds without events for the error evaluation:
+		if (MonteCarlo[i].type()==1) {
+		  err += MonteCarlo[i].nSelWeightedEvtErr(i_syst, j)*MonteCarlo[i].nSelWeightedEvtErr(i_syst, j);
+		}
+	  }
+	  MonteCarlo[0].SetnSelWeightedEvtErr(i_syst, j,sqrt(err));
+	}
   }
 
   //...Compute total number of generated events for total background
   int TotGenEvt = 0;
   for(int i=1; i < MonteCarlo.size(); i++) {
-    if (MonteCarlo[i].type()==1 && MonteCarlo[i].nSelEvt(0, 0)>0) {
-      TotGenEvt += MonteCarlo[i].nGenEvt();
-    }
+	if (MonteCarlo[i].type()==1 && MonteCarlo[i].nSelEvt(0, 0)>0) {
+	  TotGenEvt += MonteCarlo[i].nGenEvt();
+	}
   }
   MonteCarlo[0].SetnGenEvt(TotGenEvt);
 
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst)
-    PrintSummary(3, i_syst);
+	PrintSummary(3, i_syst);
 
   // Process pdf if necessary
   ProcessPdf();
@@ -1095,10 +1090,10 @@ void LipMiniAnalysis::ReadFiles(const char* ntu, const char * file, int type, do
   sprintf(s, "%s", file);
   in.open(s);
   while (1) {
-    std::string rootfile;
-    in >> rootfile;
-    if (!in.good()) break;
-    Input.File(ntu, rootfile);
+	std::string rootfile;
+	in >> rootfile;
+	if (!in.good()) break;
+	Input.File(ntu, rootfile);
   }
   in.close();
   TMonteCarlo mc(type, run, lum, nGenEvt, title, MaxCuts);
@@ -1205,19 +1200,19 @@ void LipMiniAnalysis::ProcessBookLikeHistos(){
 
   TDirectory *dir = gDirectory;
   for (int i=0; i<SignalPdfFiles.size(); ++i){
-    char t[10];
-    sprintf(t, "LikesSig%02i", i);
-    TDirectory *likedir = new TDirectory(t,t);
-    likedir->cd();
+	char t[10];
+	sprintf(t, "LikesSig%02i", i);
+	TDirectory *likedir = new TDirectory(t,t);
+	likedir->cd();
 
-    LogELikeSHistVec[i] = (TH1D*)LogELikeSHist->Clone("LogELikeS");
-    LogELikeBHistVec[i] = (TH1D*)LogELikeBHist->Clone("LogELikeB");
-    LogELikelihoodHistVec[i] = (TH1D*)LogELikelihoodHist->Clone("LogELikelihood");
+	LogELikeSHistVec[i] = (TH1D*)LogELikeSHist->Clone("LogELikeS");
+	LogELikeBHistVec[i] = (TH1D*)LogELikeBHist->Clone("LogELikeB");
+	LogELikelihoodHistVec[i] = (TH1D*)LogELikelihoodHist->Clone("LogELikelihood");
 
-    Log10LikeSHistVec[i] = (TH1D*)Log10LikeSHist->Clone("Log10LikeS");
-    Log10LikeBHistVec[i] = (TH1D*)Log10LikeBHist->Clone("Log10LikeB");
-    Log10LikelihoodHistVec[i] = (TH1D*)Log10LikelihoodHist->Clone("Log10Likelihood");
-    dir->cd();
+	Log10LikeSHistVec[i] = (TH1D*)Log10LikeSHist->Clone("Log10LikeS");
+	Log10LikeBHistVec[i] = (TH1D*)Log10LikeBHist->Clone("Log10LikeB");
+	Log10LikelihoodHistVec[i] = (TH1D*)Log10LikelihoodHist->Clone("Log10Likelihood");
+	dir->cd();
   }
 }
 
@@ -1272,9 +1267,9 @@ void LipMiniAnalysis::FillPdf(Int_t i_syst){
 // #############################################################################
 
   if (PdfVec[i_syst].size() > 0) {
-    for (int j=0; j<PdfVec[i_syst].size(); ++j){
-      PdfVec[i_syst][j]->Fill(ThisEventPdfValues[j], events[Event::event_counter].Weight);
-    }
+	for (int j=0; j<PdfVec[i_syst].size(); ++j){
+	  PdfVec[i_syst][j]->Fill(ThisEventPdfValues[j], events[Event::event_counter].Weight);
+	}
   }
 }
 
@@ -1292,13 +1287,13 @@ void LipMiniAnalysis::CreateOutputNtuple(){
   TDirectory *dir = gDirectory;
 
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-    char ntupledef[1000] = "Isub:Weight";
-    for (int j=0; j<PdfVec[i_syst].size(); ++j){
-      sprintf(ntupledef, "%s:pdf%02i", ntupledef, j);
-    }
-    OutputFile[i_syst]->cd();
-    TNtuple* pOutputNtuple = new TNtuple("SelectedEvents","Events after sequential selection",ntupledef);
-    OutputNtuple.push_back(pOutputNtuple);
+	char ntupledef[1000] = "Isub:Weight";
+	for (int j=0; j<PdfVec[i_syst].size(); ++j){
+	  sprintf(ntupledef, "%s:pdf%02i", ntupledef, j);
+	}
+	OutputFile[i_syst]->cd();
+	TNtuple* pOutputNtuple = new TNtuple("SelectedEvents","Events after sequential selection",ntupledef);
+	OutputNtuple.push_back(pOutputNtuple);
   }
 
   dir->cd();
@@ -1317,7 +1312,7 @@ void LipMiniAnalysis::FillOutputNtuple(Int_t i_syst) {
 
   //cout << " FillOutputNtuple() i_syst=" << i_syst << " PdfVec.size()=" << PdfVec.size() << " PdfVec[i_syst].size()=" << PdfVec[i_syst].size() << endl;
 
-       if (PdfVec[i_syst].size() ==  0) OutputNtuple[i_syst]->Fill(events[Event::event_counter].Isub,events[Event::event_counter].Weight);
+	   if (PdfVec[i_syst].size() ==  0) OutputNtuple[i_syst]->Fill(events[Event::event_counter].Isub,events[Event::event_counter].Weight);
   else if (PdfVec[i_syst].size() ==  1) OutputNtuple[i_syst]->Fill(events[Event::event_counter].Isub,events[Event::event_counter].Weight,ThisEventPdfValues[0]);
   else if (PdfVec[i_syst].size() ==  2) OutputNtuple[i_syst]->Fill(events[Event::event_counter].Isub,events[Event::event_counter].Weight,ThisEventPdfValues[0],ThisEventPdfValues[1]);
   else if (PdfVec[i_syst].size() ==  3) OutputNtuple[i_syst]->Fill(events[Event::event_counter].Isub,events[Event::event_counter].Weight,ThisEventPdfValues[0],ThisEventPdfValues[1],ThisEventPdfValues[2]);
@@ -1350,34 +1345,34 @@ void LipMiniAnalysis::ProcessPdf(){
 
   // loop over systematics
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-    if (PdfVec[i_syst].size() > 0) {
-      cout << endl;
-      cout << " #################################################################################" << endl;
-      cout << endl;
-      cout << "  Probability density functions defined:" << endl;
-      cout << endl;
-      for (int j=0; j<PdfVec[i_syst].size(); ++j){
-        // protection: if bin content is less or equal 0, change to 1e-30
-        int err = 0;
-        int nbins = PdfVec[i_syst][j]->GetXaxis()->GetNbins(); 
-        for (int k = 1; k <= nbins; ++k) {
-          if (PdfVec[i_syst][j]->GetBinContent(k) <= 0.) {
-            PdfVec[i_syst][j]->SetBinContent(k, 1e-30);
-            err = 1;
-          }
-        }
+	if (PdfVec[i_syst].size() > 0) {
+	  cout << endl;
+	  cout << " #################################################################################" << endl;
+	  cout << endl;
+	  cout << "  Probability density functions defined:" << endl;
+	  cout << endl;
+	  for (int j=0; j<PdfVec[i_syst].size(); ++j){
+		// protection: if bin content is less or equal 0, change to 1e-30
+		int err = 0;
+		int nbins = PdfVec[i_syst][j]->GetXaxis()->GetNbins(); 
+		for (int k = 1; k <= nbins; ++k) {
+		  if (PdfVec[i_syst][j]->GetBinContent(k) <= 0.) {
+			PdfVec[i_syst][j]->SetBinContent(k, 1e-30);
+			err = 1;
+		  }
+		}
 
-        // print info
-        cout << "  " << j << " : \"" << PdfVec[i_syst][j]->GetTitle() << "\" ";
-        if (err == 1) cout << " WITH NON POSITIVE BINS (CHANGED TO 1E-30)!!!" ;
-        cout << endl;
+		// print info
+		cout << "  " << j << " : \"" << PdfVec[i_syst][j]->GetTitle() << "\" ";
+		if (err == 1) cout << " WITH NON POSITIVE BINS (CHANGED TO 1E-30)!!!" ;
+		cout << endl;
 
-        // smooth
-        PdfVec[i_syst][j]->Smooth(PdfSmooth[j]);
-        cout << " p.d.f. " << j << " smoothed with factor " << PdfSmooth[j] << endl;
-        // Remmenber: at output pdfs ARE Not normalized
-      }
-      cout << endl;
+		// smooth
+		PdfVec[i_syst][j]->Smooth(PdfSmooth[j]);
+		cout << " p.d.f. " << j << " smoothed with factor " << PdfSmooth[j] << endl;
+		// Remmenber: at output pdfs ARE Not normalized
+	  }
+	  cout << endl;
    }
   }
 }
@@ -1397,43 +1392,43 @@ void LipMiniAnalysis::ReadPdf(){
 // #############################################################################
 
   if (PdfVec[0].size() > 0) {
-    cout << endl;
-    cout << "################################################################################" << endl;
-    cout << endl;
-    cout << "  Loading probability density functions:" << endl;
-    cout << endl;
+	cout << endl;
+	cout << "################################################################################" << endl;
+	cout << endl;
+	cout << "  Loading probability density functions:" << endl;
+	cout << endl;
 
-    TDirectory *dir = gDirectory;
-    char t[5];
+	TDirectory *dir = gDirectory;
+	char t[5];
 
-    cout << "  Background file \"" << BackgroundPdfFile.c_str() << "\":" << endl;
-    TFile* BackgroundPdf = new TFile(BackgroundPdfFile.c_str());
-    for (int j=0; j<PdfVec[0].size(); ++j){
-      TH1D *pdfb = (TH1D*)BackgroundPdf->Get(pdf(t,j));
-      // Do normalization when reading
-      Double_t scale = 1/pdfb->Integral();
-      pdfb->Scale(scale);
-      // pushback pdf
-      BackgroundPdfVec.push_back(pdfb);
-      cout << "  " << j << " : \"" << BackgroundPdfVec[j]->GetTitle() << "\" " << endl;
-    }
+	cout << "  Background file \"" << BackgroundPdfFile.c_str() << "\":" << endl;
+	TFile* BackgroundPdf = new TFile(BackgroundPdfFile.c_str());
+	for (int j=0; j<PdfVec[0].size(); ++j){
+	  TH1D *pdfb = (TH1D*)BackgroundPdf->Get(pdf(t,j));
+	  // Do normalization when reading
+	  Double_t scale = 1/pdfb->Integral();
+	  pdfb->Scale(scale);
+	  // pushback pdf
+	  BackgroundPdfVec.push_back(pdfb);
+	  cout << "  " << j << " : \"" << BackgroundPdfVec[j]->GetTitle() << "\" " << endl;
+	}
 
-    for (int i=0; i<SignalPdfFiles.size(); ++i){
-      cout << endl;
-      cout << "  Signal file \""<< SignalPdfFiles[i] << "\":" << endl;
-      TFile* SignalPdf = new TFile(SignalPdfFiles[i]);
-      for (int j=0; j<PdfVec[0].size(); ++j){
-        TH1D *pdfs = (TH1D*)SignalPdf->Get(pdf(t,j));
-        // Do normalization when reading
-        Double_t scale = 1/pdfs->Integral();
-        pdfs->Scale(scale);
-        // pushback pdf
-        SignalPdfVec[i].push_back(pdfs);
-       cout << "  " << j << " : \"" << SignalPdfVec[i][j]->GetTitle() << "\" " << endl;
-      }
-    }
+	for (int i=0; i<SignalPdfFiles.size(); ++i){
+	  cout << endl;
+	  cout << "  Signal file \""<< SignalPdfFiles[i] << "\":" << endl;
+	  TFile* SignalPdf = new TFile(SignalPdfFiles[i]);
+	  for (int j=0; j<PdfVec[0].size(); ++j){
+		TH1D *pdfs = (TH1D*)SignalPdf->Get(pdf(t,j));
+		// Do normalization when reading
+		Double_t scale = 1/pdfs->Integral();
+		pdfs->Scale(scale);
+		// pushback pdf
+		SignalPdfVec[i].push_back(pdfs);
+	   cout << "  " << j << " : \"" << SignalPdfVec[i][j]->GetTitle() << "\" " << endl;
+	  }
+	}
 
-    dir->cd();
+	dir->cd();
   }
 }
 
@@ -1453,40 +1448,40 @@ void LipMiniAnalysis::ComputeAndFillLikelihood(){
 // #############################################################################
 
   if (PdfVec[0].size() > 0) {
-    for (int i=0; i<SignalPdfFiles.size(); ++i){
-      double LikeSValue = 1;
-      double LikeBValue = 1;
-      for (int j=0; j<PdfVec[0].size(); ++j){
-        LikeSValue *= SignalPdfVec[i][j]->GetBinContent(SignalPdfVec[i][j]->FindBin(ThisEventPdfValues[j]));
-        LikeBValue *= BackgroundPdfVec[j]->GetBinContent(BackgroundPdfVec[j]->FindBin(ThisEventPdfValues[j]));
-      }
+	for (int i=0; i<SignalPdfFiles.size(); ++i){
+	  double LikeSValue = 1;
+	  double LikeBValue = 1;
+	  for (int j=0; j<PdfVec[0].size(); ++j){
+		LikeSValue *= SignalPdfVec[i][j]->GetBinContent(SignalPdfVec[i][j]->FindBin(ThisEventPdfValues[j]));
+		LikeBValue *= BackgroundPdfVec[j]->GetBinContent(BackgroundPdfVec[j]->FindBin(ThisEventPdfValues[j]));
+	  }
 
-      LogELikeSValue = log(LikeSValue);
-      LogELikeBValue = log(LikeBValue);
-      LogELikeLOverLikeBValue = log(LikeSValue/LikeBValue);
+	  LogELikeSValue = log(LikeSValue);
+	  LogELikeBValue = log(LikeBValue);
+	  LogELikeLOverLikeBValue = log(LikeSValue/LikeBValue);
 
-      Log10LikeSValue = log10(LikeSValue);
-      Log10LikeBValue = log10(LikeBValue);
-      Log10LikeLOverLikeBValue = log10(LikeSValue/LikeBValue);
+	  Log10LikeSValue = log10(LikeSValue);
+	  Log10LikeBValue = log10(LikeBValue);
+	  Log10LikeLOverLikeBValue = log10(LikeSValue/LikeBValue);
 
-      LogELikeSHistVec[i]->Fill(LogELikeSValue, events[Event::event_counter].Weight);   
-      LogELikeBHistVec[i]->Fill(LogELikeBValue, events[Event::event_counter].Weight);   
-      LogELikelihoodHistVec[i]->Fill(LogELikeLOverLikeBValue,events[Event::event_counter].Weight);   
+	  LogELikeSHistVec[i]->Fill(LogELikeSValue, events[Event::event_counter].Weight);   
+	  LogELikeBHistVec[i]->Fill(LogELikeBValue, events[Event::event_counter].Weight);   
+	  LogELikelihoodHistVec[i]->Fill(LogELikeLOverLikeBValue,events[Event::event_counter].Weight);   
 
-      Log10LikeSHistVec[i]->Fill(Log10LikeSValue,events[Event::event_counter].Weight);
-      Log10LikeBHistVec[i]->Fill(Log10LikeBValue,events[Event::event_counter].Weight);
-      Log10LikelihoodHistVec[i]->Fill(Log10LikeLOverLikeBValue,events[Event::event_counter].Weight);
+	  Log10LikeSHistVec[i]->Fill(Log10LikeSValue,events[Event::event_counter].Weight);
+	  Log10LikeBHistVec[i]->Fill(Log10LikeBValue,events[Event::event_counter].Weight);
+	  Log10LikelihoodHistVec[i]->Fill(Log10LikeLOverLikeBValue,events[Event::event_counter].Weight);
 
-      if (i == 0) {
-        LogELikeSHist->Fill(LogELikeSValue,events[Event::event_counter].Weight);   
-        LogELikeBHist->Fill(LogELikeBValue,events[Event::event_counter].Weight);   
-        LogELikelihoodHist->Fill(LogELikeLOverLikeBValue,events[Event::event_counter].Weight);   
+	  if (i == 0) {
+		LogELikeSHist->Fill(LogELikeSValue,events[Event::event_counter].Weight);   
+		LogELikeBHist->Fill(LogELikeBValue,events[Event::event_counter].Weight);   
+		LogELikelihoodHist->Fill(LogELikeLOverLikeBValue,events[Event::event_counter].Weight);   
 
-        Log10LikeSHist->Fill(Log10LikeSValue,events[Event::event_counter].Weight);
-        Log10LikeBHist->Fill(Log10LikeBValue,events[Event::event_counter].Weight);
-        Log10LikelihoodHist->Fill(Log10LikeLOverLikeBValue,events[Event::event_counter].Weight);
-      }
-    }
+		Log10LikeSHist->Fill(Log10LikeSValue,events[Event::event_counter].Weight);
+		Log10LikeBHist->Fill(Log10LikeBValue,events[Event::event_counter].Weight);
+		Log10LikelihoodHist->Fill(Log10LikeLOverLikeBValue,events[Event::event_counter].Weight);
+	  }
+	}
   }
 }
 
@@ -1563,10 +1558,10 @@ void LipMiniAnalysis::CreateOutputFile(){
 
   // loop over systematics
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-    char FileName[1000];
-    sprintf(FileName, "%s%s.root", SystName[i_syst].c_str(), OutputFileName.c_str());
-    TFile* pOutputFile = new TFile(FileName,"recreate");
-    OutputFile.push_back(pOutputFile);
+	char FileName[1000];
+	sprintf(FileName, "%s%s.root", SystName[i_syst].c_str(), OutputFileName.c_str());
+	TFile* pOutputFile = new TFile(FileName,"recreate");
+	OutputFile.push_back(pOutputFile);
   }
 
   OutputFile[0]->cd();
@@ -1588,7 +1583,7 @@ void LipMiniAnalysis::WriteHistograms(){
 // #############################################################################
 
   for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-    OutputFile[i_syst]->Write();
+	OutputFile[i_syst]->Write();
   }
 }
 
@@ -1620,162 +1615,162 @@ void LipMiniAnalysis::PrintSummary(int OutputLevel, Int_t i_syst){
 
   if (OutputLevel==1 || OutputLevel==0) {
 
-    cout << endl;
-    if(isData==0) cout << "  Total number of analysed events (unweighted): " << MonteCarlo[0].nSelEvt(i_syst, 0) << std::endl;
-    else          cout << "  Total number of analysed events: "              << MonteCarlo[0].nSelEvt(i_syst, 0) << std::endl;
-    if(isData==0) cout << "  Total number of analysed events (weighted)  : " << MonteCarlo[0].nSelWeightedEvt(i_syst, 0) << std::endl;
-    cout << endl;
+	cout << endl;
+	if(isData==0) cout << "  Total number of analysed events (unweighted): " << MonteCarlo[0].nSelEvt(i_syst, 0) << std::endl;
+	else          cout << "  Total number of analysed events: "              << MonteCarlo[0].nSelEvt(i_syst, 0) << std::endl;
+	if(isData==0) cout << "  Total number of analysed events (weighted)  : " << MonteCarlo[0].nSelWeightedEvt(i_syst, 0) << std::endl;
+	cout << endl;
 
-    for(int i = 0; i <= MaxCuts; ++i) {
+	for(int i = 0; i <= MaxCuts; ++i) {
 //      Double_t sel_eff = (Sumweights_total > 0.) ? 100.*(npassl[i]/Sumweights_total) : 0.;
 //      Double_t err_eff = (Sumweights_total > 0.) ? 100.*(sqrt(npassl[i])/Sumweights_total) : 0.;
 //      cout << "LEVEL " << i << ": " << npassl[i] << " out of "<< Sumweights_total << " events were selected -> eff = "
 //        << sel_eff << " +- " << err_eff << " %" <<endl;
-      cout << "  Level " << i << ": " << MonteCarlo[0].nSelWeightedEvt(i_syst, i) << " out of "<< MonteCarlo[0].nSelWeightedEvt(i_syst, 0) << " events were selected -> eff = "
-        << MonteCarlo[0].nSelEvt(i_syst, i)/MonteCarlo[0].nSelEvt(i_syst, 0)*100.
-        << " +- " << sqrt(MonteCarlo[0].nSelEvt(i_syst, i))/MonteCarlo[0].nSelEvt(i_syst, 0)*100 << " %" <<endl;
-    }
-    cout << endl;
-    std::cout << "  Events description (after final selection):"<< std::endl;
-    for(int i = 0; i < MonteCarlo.size(); i++) {
-      if (MonteCarlo[i].nSelEvt(i_syst, 0)>0) {
-        std::cout << "      " << MonteCarlo[i].title() << " (run " << MonteCarlo[i].run() << "): \t" << MonteCarlo[i].nSelWeightedEvt(i_syst, MaxCuts) << " +- " << MonteCarlo[i].nSelWeightedEvtErr(i_syst, MaxCuts)
-                  << "\t (" << MonteCarlo[i].nSelEvt(i_syst, MaxCuts) << " events with weight " << MonteCarlo[i].nSelWeightedEvt(i_syst, MaxCuts)/MonteCarlo[i].nSelEvt(i_syst, MaxCuts) << ")" <<  endl;
-        std::cout << "       \t \t --> overall efficiency (selected/generated) = "
-                  << MonteCarlo[i].nSelEvt(i_syst, MaxCuts)/MonteCarlo[i].nGenEvt()*100 << " +- " << MonteCarlo[i].nSelWeightedEvtErr(i_syst, MaxCuts)/MonteCarlo[i].nGenEvt()*100 << " %" << endl;
-      }
-    }
-    std::cout << "    total: " << MonteCarlo[0].nSelWeightedEvt(i_syst, MaxCuts) << " +- " << MonteCarlo[0].nSelWeightedEvtErr(i_syst, MaxCuts) << endl;
+	  cout << "  Level " << i << ": " << MonteCarlo[0].nSelWeightedEvt(i_syst, i) << " out of "<< MonteCarlo[0].nSelWeightedEvt(i_syst, 0) << " events were selected -> eff = "
+		<< MonteCarlo[0].nSelEvt(i_syst, i)/MonteCarlo[0].nSelEvt(i_syst, 0)*100.
+		<< " +- " << sqrt(MonteCarlo[0].nSelEvt(i_syst, i))/MonteCarlo[0].nSelEvt(i_syst, 0)*100 << " %" <<endl;
+	}
+	cout << endl;
+	std::cout << "  Events description (after final selection):"<< std::endl;
+	for(int i = 0; i < MonteCarlo.size(); i++) {
+	  if (MonteCarlo[i].nSelEvt(i_syst, 0)>0) {
+		std::cout << "      " << MonteCarlo[i].title() << " (run " << MonteCarlo[i].run() << "): \t" << MonteCarlo[i].nSelWeightedEvt(i_syst, MaxCuts) << " +- " << MonteCarlo[i].nSelWeightedEvtErr(i_syst, MaxCuts)
+				  << "\t (" << MonteCarlo[i].nSelEvt(i_syst, MaxCuts) << " events with weight " << MonteCarlo[i].nSelWeightedEvt(i_syst, MaxCuts)/MonteCarlo[i].nSelEvt(i_syst, MaxCuts) << ")" <<  endl;
+		std::cout << "       \t \t --> overall efficiency (selected/generated) = "
+				  << MonteCarlo[i].nSelEvt(i_syst, MaxCuts)/MonteCarlo[i].nGenEvt()*100 << " +- " << MonteCarlo[i].nSelWeightedEvtErr(i_syst, MaxCuts)/MonteCarlo[i].nGenEvt()*100 << " %" << endl;
+	  }
+	}
+	std::cout << "    total: " << MonteCarlo[0].nSelWeightedEvt(i_syst, MaxCuts) << " +- " << MonteCarlo[0].nSelWeightedEvtErr(i_syst, MaxCuts) << endl;
 
   }
 
   if (OutputLevel==2 || OutputLevel==0) {
 /*
-    cout << std::left << std::setw(40) << " ";
-    for(int i = 0; i <= MaxCuts; i++) {
-      cout << std::right << std::setw(39) << "LEVEL " << i << "  ";
-    }
-    cout << endl;
-    for(int i=0; i < MonteCarlo.size(); i++) {
-      if (MonteCarlo[i].nSelEvt(0)>0) {
-        cout << std::left << std::setw(40) << MonteCarlo[i].title() << ":";
-        for(int j = 0; j <= MaxCuts; j++) {
-          cout << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(1) << std::showpoint << MonteCarlo[i].nSelWeightedEvt(j)       << " +- "
-               << std::dec << std::fixed << std::right << std::setw( 7) << std::setprecision(1) << std::showpoint << MonteCarlo[i].nSelWeightedEvtErr(j);
+	cout << std::left << std::setw(40) << " ";
+	for(int i = 0; i <= MaxCuts; i++) {
+	  cout << std::right << std::setw(39) << "LEVEL " << i << "  ";
+	}
+	cout << endl;
+	for(int i=0; i < MonteCarlo.size(); i++) {
+	  if (MonteCarlo[i].nSelEvt(0)>0) {
+		cout << std::left << std::setw(40) << MonteCarlo[i].title() << ":";
+		for(int j = 0; j <= MaxCuts; j++) {
+		  cout << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(1) << std::showpoint << MonteCarlo[i].nSelWeightedEvt(j)       << " +- "
+			   << std::dec << std::fixed << std::right << std::setw( 7) << std::setprecision(1) << std::showpoint << MonteCarlo[i].nSelWeightedEvtErr(j);
 // NOTE: verify code!!!
 //     << " ("
 //               << std::dec << std::fixed << std::right << std::setw( 5) << std::setprecision(1) << std::showpoint << MonteCarlo[i].nSelWeightedEvtEff(j)    << " +- "
 //               << std::dec << std::fixed << std::right << std::setw( 5) << std::setprecision(3) << std::showpoint << MonteCarlo[i].nSelWeightedEvtEffErr(j) << " %) ";
-        }
-      cout << endl;
-      }
-    }
-    cout << endl;
+		}
+	  cout << endl;
+	  }
+	}
+	cout << endl;
 */
 
 /*
-    cout << std::left << std::setw(40) << MonteCarlo[0].title() << ":";
-    for(int j = 0; j <= MaxCuts; j++) {
-      double err = 0.;
-      for(int i=1; i < MonteCarlo.size(); i++) {
-        if (MonteCarlo[i].nSelEvt(0)>0) {
-          err+= MonteCarlo[i].nSelWeightedEvtErr(j)*MonteCarlo[i].nSelWeightedEvtErr(j);
-        }
-      }
-      err=sqrt(err);
-      cout << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(1) << std::showpoint << MonteCarlo[0].nSelWeightedEvt(j)       << " +- "
-           << std::dec << std::fixed << std::right << std::setw( 7) << std::setprecision(1) << std::showpoint << err                                    << " ("
-           << std::dec << std::fixed << std::right << std::setw( 5) << std::setprecision(1) << std::showpoint << MonteCarlo[0].nSelWeightedEvtEff(j)    << " +- "
-           << std::dec << std::fixed << std::right << std::setw( 5) << std::setprecision(3) << std::showpoint << MonteCarlo[0].nSelWeightedEvtEffErr(j) << " %) ";
-    }
-    cout << endl;
+	cout << std::left << std::setw(40) << MonteCarlo[0].title() << ":";
+	for(int j = 0; j <= MaxCuts; j++) {
+	  double err = 0.;
+	  for(int i=1; i < MonteCarlo.size(); i++) {
+		if (MonteCarlo[i].nSelEvt(0)>0) {
+		  err+= MonteCarlo[i].nSelWeightedEvtErr(j)*MonteCarlo[i].nSelWeightedEvtErr(j);
+		}
+	  }
+	  err=sqrt(err);
+	  cout << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(1) << std::showpoint << MonteCarlo[0].nSelWeightedEvt(j)       << " +- "
+		   << std::dec << std::fixed << std::right << std::setw( 7) << std::setprecision(1) << std::showpoint << err                                    << " ("
+		   << std::dec << std::fixed << std::right << std::setw( 5) << std::setprecision(1) << std::showpoint << MonteCarlo[0].nSelWeightedEvtEff(j)    << " +- "
+		   << std::dec << std::fixed << std::right << std::setw( 5) << std::setprecision(3) << std::showpoint << MonteCarlo[0].nSelWeightedEvtEffErr(j) << " %) ";
+	}
+	cout << endl;
 */
   }
 
   if (OutputLevel==3 || OutputLevel==0) {
-    for(int i = 0; i < MonteCarlo.size(); i++) {
-      if (MonteCarlo[i].nSelEvt(i_syst, 0)>0) {
+	for(int i = 0; i < MonteCarlo.size(); i++) {
+	  if (MonteCarlo[i].nSelEvt(i_syst, 0)>0) {
 
-        cout << endl;
-        cout << "  ----------------------------------------------------------------------------" << endl;
-        cout << "  "
-          << MonteCarlo[i].title()
-          << " (RunNumber = "
-          << std::dec << std::fixed << std::right << std::setw(0) << std::setprecision(0)
-          << MonteCarlo[i].run()
-          << "):"
-          << endl;
-        cout << "  ----------------------------------------------------------------------------" << endl;
-        cout << endl;
-       if (isData != 1){ 
-          cout << "    Number of generated events (unweighted) = "
-            << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(0)
-            << MonteCarlo[i].nGenEvt() << endl;
-       }
-        cout << "    Number of analysed events (unweighted)  = "
-          << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(0)
-          << MonteCarlo[i].nSelEvt(i_syst, 0) << endl;
-        cout << "    Number of analysed events (weighted)    = "
-          << std::dec << std::fixed << std::right << std::setw(12) << std::setprecision(1)
-          << MonteCarlo[i].nSelWeightedEvt(i_syst, 0) << endl;
-        cout << "    Weight of analysed events               = "
-          << std::dec << std::fixed << std::right << std::setw(16) << std::setprecision(5)
-          << MonteCarlo[i].nSelWeightedEvt(i_syst, 0)/MonteCarlo[i].nSelEvt(i_syst, 0) << endl;
-        cout << "    Luminosity of the sample                = "
-          << std::dec << std::fixed << std::right << std::setw(16) << std::setprecision(5)
-          << MonteCarlo[i].lum() << endl;
-        cout << endl;
+		cout << endl;
+		cout << "  ----------------------------------------------------------------------------" << endl;
+		cout << "  "
+		  << MonteCarlo[i].title()
+		  << " (RunNumber = "
+		  << std::dec << std::fixed << std::right << std::setw(0) << std::setprecision(0)
+		  << MonteCarlo[i].run()
+		  << "):"
+		  << endl;
+		cout << "  ----------------------------------------------------------------------------" << endl;
+		cout << endl;
+	   if (isData != 1){ 
+		  cout << "    Number of generated events (unweighted) = "
+			<< std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(0)
+			<< MonteCarlo[i].nGenEvt() << endl;
+	   }
+		cout << "    Number of analysed events (unweighted)  = "
+		  << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(0)
+		  << MonteCarlo[i].nSelEvt(i_syst, 0) << endl;
+		cout << "    Number of analysed events (weighted)    = "
+		  << std::dec << std::fixed << std::right << std::setw(12) << std::setprecision(1)
+		  << MonteCarlo[i].nSelWeightedEvt(i_syst, 0) << endl;
+		cout << "    Weight of analysed events               = "
+		  << std::dec << std::fixed << std::right << std::setw(16) << std::setprecision(5)
+		  << MonteCarlo[i].nSelWeightedEvt(i_syst, 0)/MonteCarlo[i].nSelEvt(i_syst, 0) << endl;
+		cout << "    Luminosity of the sample                = "
+		  << std::dec << std::fixed << std::right << std::setw(16) << std::setprecision(5)
+		  << MonteCarlo[i].lum() << endl;
+		cout << endl;
 
-        cout << "    Level         Weighted             (Unweighted)" << endl;
+		cout << "    Level         Weighted             (Unweighted)" << endl;
 
-        for(int l = 0; l <= MaxCuts; ++l) {
-          cout
-            // level
-            << std::dec << std::fixed << std::right << std::setw(7) << std::setprecision(0)
-            << l << ": "
+		for(int l = 0; l <= MaxCuts; ++l) {
+		  cout
+			// level
+			<< std::dec << std::fixed << std::right << std::setw(7) << std::setprecision(0)
+			<< l << ": "
 
-            // number of selected events (weighted)
-            << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(1)
-            << MonteCarlo[i].nSelWeightedEvt(i_syst, l)
+			// number of selected events (weighted)
+			<< std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(1)
+			<< MonteCarlo[i].nSelWeightedEvt(i_syst, l)
 
-            // statistic error of the number of selected events (weighted)
-            << " +- "
-            << std::dec << std::fixed << std::right << std::setw(9) << std::setprecision(2)
-            << MonteCarlo[i].nSelWeightedEvtErr(i_syst, l)
+			// statistic error of the number of selected events (weighted)
+			<< " +- "
+			<< std::dec << std::fixed << std::right << std::setw(9) << std::setprecision(2)
+			<< MonteCarlo[i].nSelWeightedEvtErr(i_syst, l)
 
-            // number of selected events (unweighted)
-            << " ("
-            << std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(0)
-            << MonteCarlo[i].nSelEvt(i_syst, l);
+			// number of selected events (unweighted)
+			<< " ("
+			<< std::dec << std::fixed << std::right << std::setw(10) << std::setprecision(0)
+			<< MonteCarlo[i].nSelEvt(i_syst, l);
 
-            if(isData != 1){
-              // efficiency (of unweighted events)
-              cout << " ; "
-              << std::dec << std::fixed << std::right << std::setw(6) << std::setprecision(2)
-              << MonteCarlo[i].nSelEvt(i_syst, l)/MonteCarlo[i].nGenEvt()*100
+			if(isData != 1){
+			  // efficiency (of unweighted events)
+			  cout << " ; "
+			  << std::dec << std::fixed << std::right << std::setw(6) << std::setprecision(2)
+			  << MonteCarlo[i].nSelEvt(i_syst, l)/MonteCarlo[i].nGenEvt()*100
 
-              // statistic error of the efficiency (of unweighted events)
-              << " +- "
-              << std::dec << std::fixed << std::right << std::setw(5) << std::setprecision(3)
-              << sqrt(MonteCarlo[i].nSelEvt(i_syst, l))/MonteCarlo[i].nGenEvt()*100 << " % "
-              << ")"        
-              << endl;
-            }else{
-              // efficiency (of unweighted events)
-              cout << " ; "
-              << std::dec << std::fixed << std::right << std::setw(6) << std::setprecision(2)
-              << MonteCarlo[i].nSelEvt(i_syst, l)/MonteCarlo[i].nSelEvt(i_syst, 0)*100
+			  // statistic error of the efficiency (of unweighted events)
+			  << " +- "
+			  << std::dec << std::fixed << std::right << std::setw(5) << std::setprecision(3)
+			  << sqrt(MonteCarlo[i].nSelEvt(i_syst, l))/MonteCarlo[i].nGenEvt()*100 << " % "
+			  << ")"        
+			  << endl;
+			}else{
+			  // efficiency (of unweighted events)
+			  cout << " ; "
+			  << std::dec << std::fixed << std::right << std::setw(6) << std::setprecision(2)
+			  << MonteCarlo[i].nSelEvt(i_syst, l)/MonteCarlo[i].nSelEvt(i_syst, 0)*100
 
-              // statistic error of the efficiency (of unweighted events)
-              << " +- "
-              << std::dec << std::fixed << std::right << std::setw(5) << std::setprecision(3)
-              << sqrt(MonteCarlo[i].nSelEvt(i_syst, l))/MonteCarlo[i].nSelEvt(i_syst, 0)*100 << " % "
-              << ")"        
-              << endl;
-            }
-        }
-      }
-    }
+			  // statistic error of the efficiency (of unweighted events)
+			  << " +- "
+			  << std::dec << std::fixed << std::right << std::setw(5) << std::setprecision(3)
+			  << sqrt(MonteCarlo[i].nSelEvt(i_syst, l))/MonteCarlo[i].nSelEvt(i_syst, 0)*100 << " % "
+			  << ")"        
+			  << endl;
+			}
+		}
+	  }
+	}
   }
 }
 
@@ -1863,9 +1858,9 @@ void LipMiniAnalysis::Loop() {
 						events[Event::event_counter].Weight = events[Event::event_counter].Weight * Luminosity / MonteCarlo[mc_aux].lum();
 
 					first_DoCuts();
-          preKinFit();
-          
-          //#pragma omp critical
+		  preKinFit();
+		  
+		  //#pragma omp critical
 					Event::event_counter++;
 				}
 				max++;
