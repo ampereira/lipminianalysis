@@ -66,7 +66,6 @@ namespace LIP {
 	long long int stopTimer (long long int init) {
 		timeval t;
 		long long int end;
-		char *buff = NULL;
 		char *flag = NULL;
 
 		gettimeofday(&t, NULL);

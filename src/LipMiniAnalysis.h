@@ -274,7 +274,7 @@ public:
 	// amostras para ler
 	std::vector<TMonteCarlo> MonteCarlo;
 	virtual void DefineSamples();
-	void ReadFiles(const char * ntu, const char * file, int type, double run, long double lum, long long int nGenEvt, std::string title, int MaxCuts);
+	void ReadFiles(const char * ntu, const char * file, int type, double run, long double lum, long long int nGenEvt, std::string title);
 
 	// stuff for selection levels
 	// number of cuts: do not forget to change when a new cut is added

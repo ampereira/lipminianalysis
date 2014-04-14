@@ -1074,7 +1074,7 @@ void LipMiniAnalysis::DefineSamples(){
 }
 
 // #############################################################################
-void LipMiniAnalysis::ReadFiles(const char* ntu, const char * file, int type, double run, long double lum, long long int nGenEvt, std::string title, int MaxCuts) {
+void LipMiniAnalysis::ReadFiles(const char* ntu, const char * file, int type, double run, long double lum, long long int nGenEvt, std::string title) {
 // #############################################################################
 //
 //  purpose: to be used inside DefineSamples()
