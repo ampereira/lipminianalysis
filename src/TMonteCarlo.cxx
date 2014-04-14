@@ -1,7 +1,7 @@
 #include "TMonteCarlo.h"
 
 
-TMonteCarlo::TMonteCarlo (int type, double run, long double lum, long long int nGenEvt, std::string title, int MaxCuts) {
+TMonteCarlo::TMonteCarlo (int type, double run, long double lum, long long int nGenEvt, std::string title) {
 
 	if (type != 0 && type != 1 && type != 2 ) {
 		std::cout << "ERROR: unknown MC type for process " << title << std::endl;

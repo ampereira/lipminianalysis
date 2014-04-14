@@ -601,6 +601,8 @@ void LipMiniAnalysis::CommandLineOptions(int print) {
   }
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
 // #############################################################################
 void LipMiniAnalysis::UserCommandLineOptions(char *options, int print) {
 // #############################################################################
@@ -615,6 +617,7 @@ void LipMiniAnalysis::UserCommandLineOptions(char *options, int print) {
 // #############################################################################
 
 }
+#pragma GCC diagnostic pop
 
 // #############################################################################
 void LipMiniAnalysis::SetSystematics() {
@@ -756,10 +759,10 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   if (DoLike) ++MaxCuts;
 
   if (isData==0){
-	 TMonteCarlo mc_tot(0, -1, 1, 1, "Total MC", MaxCuts);
+	 TMonteCarlo mc_tot(0, -1, 1, 1, "Total MC");
 	 MonteCarlo.push_back(mc_tot);
   }else{
-	 TMonteCarlo data_tot(0, -1, 1, 1, "Total data", MaxCuts);
+	 TMonteCarlo data_tot(0, -1, 1, 1, "Total data");
 	 MonteCarlo.push_back(data_tot);
   }
 
@@ -1096,7 +1099,7 @@ void LipMiniAnalysis::ReadFiles(const char* ntu, const char * file, int type, do
 	Input.File(ntu, rootfile);
   }
   in.close();
-  TMonteCarlo mc(type, run, lum, nGenEvt, title, MaxCuts);
+  TMonteCarlo mc(type, run, lum, nGenEvt, title);
   MonteCarlo.push_back(mc);
 }
 
@@ -1137,6 +1140,8 @@ void LipMiniAnalysis::BookHistograms(THistos &){
 
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
 // #############################################################################
 void LipMiniAnalysis::BookPdfHistos(Int_t i_syst) {
 // #############################################################################
@@ -1154,6 +1159,7 @@ void LipMiniAnalysis::BookPdfHistos(Int_t i_syst) {
 // #############################################################################
 
 }
+#pragma GCC diagnostic pop
 
 // #############################################################################
 void LipMiniAnalysis::BookLikeHistos(){

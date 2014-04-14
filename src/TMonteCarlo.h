@@ -19,7 +19,7 @@ class TMonteCarlo {
 	TDirectory *dir;
 
 public:
-	TMonteCarlo (int type, double run, long double lum, long long int nGenEvt, std::string title, int MaxCuts);
+	TMonteCarlo (int type, double run, long double lum, long long int nGenEvt, std::string title);
 	~TMonteCarlo (void);
 	inline void AddSelEvt (Int_t i_syst, Int_t level) {p_nSelEvt[i_syst][level]++;}
 	inline void AddSelWeightedEvt (Int_t i_syst, Int_t level, Double_t weight) {p_nSelWeightedEvt[i_syst][level]+=weight;}
