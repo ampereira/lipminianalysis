@@ -602,7 +602,7 @@ void LipMiniAnalysis::CommandLineOptions(int print) {
 }
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 // #############################################################################
 void LipMiniAnalysis::UserCommandLineOptions(char *options, int print) {
 // #############################################################################
@@ -1141,7 +1141,7 @@ void LipMiniAnalysis::BookHistograms(THistos &){
 }
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 // #############################################################################
 void LipMiniAnalysis::BookPdfHistos(Int_t i_syst) {
 // #############################################################################
