@@ -1020,6 +1020,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
 	LIP::stopTimer(tm);
 
+			cout << endl << "WUTTTT" << endl << endl;
   // Prints date, time
   time(&rawtimeF);
   timeinfo = localtime(&rawtimeF);
@@ -1909,7 +1910,6 @@ void LipMiniAnalysis::Loop() {
 				FillOutputNtuple(0);
 			}
 
-			cout << endl << "WUTTTT" << endl << endl;
 			// Count events
 			for(int i=0; i <= events[Event::event_counter].LastCut; ++i) {
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelEvt(i_syst, i);
