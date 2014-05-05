@@ -1909,6 +1909,7 @@ void LipMiniAnalysis::Loop() {
 				FillOutputNtuple(0);
 			}
 
+			cout << endl << "WUTTTT" << endl << endl;
 			// Count events
 			for(int i=0; i <= events[Event::event_counter].LastCut; ++i) {
 				MonteCarlo[events[Event::event_counter].mc_process].AddSelEvt(i_syst, i);
@@ -1922,7 +1923,6 @@ void LipMiniAnalysis::Loop() {
 				}
 			}
 
-			cout << endl << "WUTTTT" << endl << endl;
 
 			FillHistograms(MonteCarlo[0].histo[i_syst].histo);
 #ifdef CUTS_OPTIM
