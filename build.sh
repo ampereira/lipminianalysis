@@ -10,13 +10,27 @@ if [ "$1" = "clean" ]
 		cd ..
 		make clean
 	else
-		echo "Building the interface"
-		cd interface_generator
-		make
+		if [ "$1" = "debug" ]
+			then
+				export DEBUG=yes
+				echo "Building the interface in debug mode"
+				cd interface_generator
+				make
 
-		bin/EDGen ../src EventData.h
+				bin/EDGen ../src EventData.h
 
-		echo "Building LipMiniAnalysis"
-		cd ..
-		make
+				echo "Building LipMiniAnalysis in debug mode"
+				cd ..
+				make
+			else
+				echo "Building the interface"
+				cd interface_generator
+				make
+
+				bin/EDGen ../src EventData.h
+
+				echo "Building LipMiniAnalysis"
+				cd ..
+				make
+		fi
 fi
