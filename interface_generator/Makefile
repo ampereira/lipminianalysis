@@ -1,24 +1,17 @@
 ################################################################################
-# Makefile for LipMiniAnalysis
+# Makefile for the EventData interface generator
 #
 # by André Pereira (LIP-Minho)
 ################################################################################
 
 SHELL = /bin/sh
 
-DEFINES = -Dextname
-
-LIB_NAME = libLipMiniAnalysis
+TOOL_NAME = EDGen
 
 CXX        = g++
 LD         = g++
 
-ROOTCFLAGS = $(shell $(ROOTSYS)/bin/root-config --cflags)
-ROOTLIBS   = $(shell $(ROOTSYS)/bin/root-config --libs)
-ROOTGLIBS  = $(shell root-config --glibs) -lMinuit -lHtml -lEG -lPhysics -lTreePlayer
-
-
-CXXFLAGS   = -Wall -Wextra -Wno-comment -Wno-deprecated-declarations -Wno-sign-compare -fopenmp $(ROOTCFLAGS)
+CXXFLAGS   = -Wall -Wextra
 
 ifeq ($(DEBUG),yes)
 	CXXFLAGS += -ggdb3
@@ -26,26 +19,20 @@ else
 	CXXFLAGS += -O3
 endif
 
-ifeq ($(CUTS_OPTIM),yes)
-	CXXFLAGS += -DCUTS_OPTIM
-endif
+#BOOST_PATH = /Users/andre/dev_tools/boost_1_55_0
 
-LIBS  = $(ROOTLIBS)
-GLIBS = $(ROOTGLIBS)
-
-INCLUDES = -I$(ROOTSYS)/include
+#CXXFLAGS += -I$(BOOST_PATH) -L$(BOOST_PATH)/stage/lib
 
 ################################################################################
 # Control awesome stuff
 ################################################################################
 
 SRC_DIR = src
-LIB_DIR = lib
+BIN_DIR = bin
 BUILD_DIR = build
 SRC = $(wildcard $(SRC_DIR)/*.cxx)
 OBJ = $(patsubst src/%.cxx,build/%.o,$(SRC))
 DEPS = $(patsubst build/%.o,build/%.d,$(OBJ))
-LIB = $(addsufix .a, $(LIB_NAME))
 
 vpath %.cxx $(SRC_DIR)
 
@@ -61,14 +48,14 @@ $(BUILD_DIR)/%.d: %.cxx
 $(BUILD_DIR)/%.o: %.cxx
 	$(CXX) -c $(CXXFLAGS) $(INCLUDES) $< -o $@
 
-$(LIB_DIR)/$(LIB_NAME).a: $(DEPS) $(OBJ)
-	ar -r $@ $(OBJ)
+$(BIN_DIR)/$(TOOL_NAME): $(DEPS) $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ)
 
 checkdirs:
 	@mkdir -p $(BUILD_DIR)
-	@mkdir -p $(LIB_DIR)
+	@mkdir -p $(BIN_DIR)
 
-all: checkdirs $(LIB_DIR)/$(LIB_NAME).a
+all: checkdirs $(BIN_DIR)/$(TOOL_NAME)
 
 clean:
-	rm -f $(BUILD_DIR)/* $(LIB_DIR)/* 
+	rm -f $(BUILD_DIR)/* $(BIN_DIR)/* 

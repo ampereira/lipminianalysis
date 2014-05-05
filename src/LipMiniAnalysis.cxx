@@ -71,21 +71,11 @@ using std::string ;
 using std::stringstream ;
 
 #include "LipMiniAnalysis.h"
+
+extern int number_of_threads;
+extern int dilep_iterations;
 std::vector<Event::EventData> events;
 
-// #############################################################################
-/*bool LorentzVecComp(TLorentzVectorWFlags a, TLorentzVectorWFlags b) {
-// #############################################################################
-//
-//  purpose: this function is used to sort the particles by decreasing pT
-//
-//  authors: fveloso
-//  first version: 27.fev.2007
-//
-// #############################################################################
-
-   return a.Pt() > b.Pt();
-}*/
 
 // #############################################################################
 LipMiniAnalysis::LipMiniAnalysis(){
@@ -770,7 +760,8 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   cout << " #################################################################################" << endl;
   cout << endl;
 
-  DefineSamples();
+  DefineSamples();		
+
 
   cout << endl;
   cout << " #################################################################################" << endl;
@@ -1812,10 +1803,14 @@ void LipMiniAnalysis::Loop() {
 		return;
 
 	// start loop over all events
-	int max = 0;
 	omp_set_num_threads(number_of_threads);
 
+#ifdef CUTS_OPTIM
+	int max = 0;
 	//#pragma omp parallel reduction(+:max)
+#else
+	//#pragma omp parallel
+#endif
 	{
 		int tid = omp_get_thread_num();
 		// If a thread has reached the end of the file it cancels the loop
@@ -1863,10 +1858,11 @@ void LipMiniAnalysis::Loop() {
 					if(isData==0 || isQCDantie==1 || isQCDmmm==1)
 						events[Event::event_counter].Weight = events[Event::event_counter].Weight * Luminosity / MonteCarlo[mc_aux].lum();
 
-					first_DoCuts();
-		  preKinFit();
+#ifdef CUTS_OPTIM
+/*					first_DoCuts();
+		  			preKinFit();
 		  
-		  //#pragma omp critical
+		  			//#pragma omp critical
 					Event::event_counter++;
 				}
 				max++;
@@ -1874,26 +1870,14 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-  /*
-	Event::event_counter = 0;
-	#pragma omp parallel
-	{
-		cout << "Tid: " << omp_get_thread_num() << endl;
-		#pragma omp for //schedule(dynamic)
-		for (int counter = 0; counter < max; counter++) {
-			for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-				second_DoCuts();
-			}
-			Event::event_counter++;
-		}
-	}
-  */
   second_DoCuts();
 
 	Event::event_counter = 0;
 	for (int counter = 0; counter < max; counter++) {
-		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
-
+		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {*/
+#else
+			DoCuts();
+#endif
 			// Check if the value of 'MaxCuts' is enough for the cuts made by 'DoCuts()'
 			if (events[Event::event_counter].LastCut > MaxCuts - DoLike){
 				cout << endl;
@@ -1939,7 +1923,15 @@ void LipMiniAnalysis::Loop() {
 			}
 
 			FillHistograms(MonteCarlo[0].histo[i_syst].histo);
+#ifdef CUTS_OPTIM
 		}
 		Event::event_counter++;
 	}
+#else
+		}
+		}
+		Event::event_counter++;
+	}
+	}
+#endif
 }

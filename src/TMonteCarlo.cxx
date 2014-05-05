@@ -29,8 +29,36 @@ TMonteCarlo::TMonteCarlo (int type, double run, long double lum, long long int n
 	}
 }
 
-TMonteCarlo::~TMonteCarlo (void) {
+TMonteCarlo::TMonteCarlo (int type, double run, long double lum, long long int nGenEvt, std::string title, int MaxCuts) {
 
+	if (type != 0 && type != 1 && type != 2 ) {
+		std::cout << "ERROR: unknown MC type for process " << title << std::endl;
+		exit(0);
+	}
+
+	if (lum <= 0.) {
+		std::cout << "ERROR: luminosity is less than or equal to 0 for process " << title << std::endl;
+		exit(0);
+	}
+
+	p_type=type;
+	p_run=run;
+	p_lum=lum;
+	p_nGenEvt=nGenEvt;
+	p_title=title;
+	p_CrossSection=nGenEvt/lum;
+
+	if (p_type == 1) {
+		dir = new TDirectory(title.c_str(), title.c_str());
+	} else {
+		if (p_type == 0) {
+			dir = gDirectory;
+		}
+	}
+}
+
+TMonteCarlo::~TMonteCarlo (void) {
+	delete dir;
 }
 
 void TMonteCarlo::SetnGenEvt (long long int nGenEvt) {

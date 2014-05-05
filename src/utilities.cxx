@@ -17,11 +17,11 @@ namespace LIP {
 		char *num = getenv("DILEP_ITER");
 
 		if (num != NULL) {
-//			dilep_iterations = atoi(num);
+			dilep_iterations = atoi(num);
 			cout << "\033[0;32mRuning analysis for " << dilep_iterations;
 			cout << " dilep iterations per event\033[0m" << endl << endl;
 		} else {
-//			dilep_iterations = DEFAULT_DILEP;
+			dilep_iterations = DEFAULT_DILEP;
 			cout << "\033[0;31mNumber of dilep iterations not defined!" << endl;
 			cout << "Running analysis for the default value of ";
 			cout << dilep_iterations << " dilep iterations\033[0m" << endl << endl;

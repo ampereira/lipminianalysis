@@ -120,81 +120,118 @@ namespace Event {
 
 		std::vector<TVector3> Vtx;
 
-
-		// Cenas Calculations
-		Int_t myRunNumber;       //...run number
+		//...run number
+		Int_t myRunNumber;       
 
         //.................t
-        Int_t my_ITQ;            //...line for top quark
-        Int_t my_IQ1;            //...counter for top quark
+        //...line for top quark
+        Int_t my_ITQ;   
+        //...counter for top quark         
+        Int_t my_IQ1;            
         TLorentzVector my_t;
         //.................tbar
-        Int_t my_ITB;            //...line for anti top quark
-        Int_t my_IQ2;            //...counter for anti top quark
+        //...line for anti top quark
+        Int_t my_ITB;            
+        //...counter for anti top quark
+        Int_t my_IQ2;            
         TLorentzVector my_tb;
 
 
         //.................W+
-        Int_t my_IWP;            //...line for W+
-        Int_t my_IW1;            //...counter for W+
+        //...line for W+
+        Int_t my_IWP;         
+         //...counter for W+   
+        Int_t my_IW1;           
         TLorentzVector my_Wp;
         //.................W-
-        Int_t my_IWN;            //...line for W-
-        Int_t my_IW2;            //...counter for W-
+        //...line for W-
+        Int_t my_IWN;            
+        //...counter for W-
+        Int_t my_IW2;            
         TLorentzVector my_Wn;
 
 
         //.................b
-        Int_t my_IBQ;            //...line for b
-        Int_t my_IB1;            //...counter for bb
+        //...line for b
+        Int_t my_IBQ;           
+        //...counter for bb 
+        Int_t my_IB1;            
         TLorentzVector my_b;
         //.................bb
-        Int_t my_IBB;            //...line for bb
-        Int_t my_IB2;            //...counter for bb
+        //...line for bb
+        Int_t my_IBB;            
+        //...counter for bb
+        Int_t my_IB2;            
         TLorentzVector my_bb;
 
 
         //.................s
-        Int_t my_ISQ;            //...line for s
-        Int_t my_IS1;            //...counter for s
+        //...line for s
+        Int_t my_ISQ;            
+        //...counter for s
+        Int_t my_IS1;            
         TLorentzVector my_s;
         //.................sb
-        Int_t my_ISB;            //...line for sb
-        Int_t my_IS2;            //...counter for sb
+        //...line for sb
+        Int_t my_ISB;            
+        //...counter for sb
+        Int_t my_IS2;            
         TLorentzVector my_sb;
 
 
         //.................d
-        Int_t my_IDWQ;            //...line for d
-        Int_t my_IDW1;            //...counter for d
+        //...line for d
+        Int_t my_IDWQ;            
+        //...counter for d
+        Int_t my_IDW1;            
         TLorentzVector my_dw;
         //.................db
-        Int_t my_IDWB;            //...line for db
-        Int_t my_IDW2;            //...counter for db
+        //...line for db
+        Int_t my_IDWB;            
+        //...counter for db
+        Int_t my_IDW2;            
         TLorentzVector my_dwb;
 
         //.................W+->f1f2
-        Int_t my_IWPf1;          //...line for f1
-       	Int_t my_IWPf2;          //...line for f2
-        Int_t my_IWPf1_Coun;     //...counter for f1
-        Int_t my_IWPf2_Coun;     //...counter for f2
-        Int_t my_IWPtau_Neu;     //...counter for Tau Neutrinos
-        Int_t my_IWPtau_elNeu;   //...counter for ele Neutrinos (from tau decay)
-        Int_t my_IWPtau_muNeu;   //...counter for muo Neutrino  (from tau decay)
-        Int_t my_pdgID_Wp_dw;    //...Code of 1st W+ Daughter
-        Int_t my_pdgID_Wp_up;    //...Code of 2nd W+ Daughter
+        //...line for f1
+        Int_t my_IWPf1;       
+        //...line for f2   
+       	Int_t my_IWPf2;          
+       	 //...counter for f1
+        Int_t my_IWPf1_Coun;    
+        //...counter for f2
+        Int_t my_IWPf2_Coun;     
+        //...counter for Tau Neutrinos
+        Int_t my_IWPtau_Neu;     
+        //...counter for ele Neutrinos (from tau decay)
+        Int_t my_IWPtau_elNeu;   
+        //...counter for muo Neutrino  (from tau decay)
+        Int_t my_IWPtau_muNeu;   
+        //...Code of 1st W+ Daughter
+        Int_t my_pdgID_Wp_dw;    
+        //...Code of 2nd W+ Daughter
+        Int_t my_pdgID_Wp_up;    
         TLorentzVector my_Wpf1;
         TLorentzVector my_Wpf2;
         //.................W-->f1f2
-        Int_t my_IWNf1;          //...line for f1
-        Int_t my_IWNf2;          //...line for f2
-        Int_t my_IWNf1_Coun;     //...counter for f1
-        Int_t my_IWNf2_Coun;     //...counter for f2
-        Int_t my_IWNtau_Neu;     //...counter for Tau Neutrinos
-        Int_t my_IWNtau_elNeu;   //...counter for ele Neutrinos (from tau decay)
-        Int_t my_IWNtau_muNeu;   //...counter for muo Neutrino  (from tau decay)
-        Int_t my_pdgID_Wn_dw;    //...Code of 1st W- Daughter
-        Int_t my_pdgID_Wn_up;    //...Code of 2nd W- Daughter
+        //...line for f1
+        Int_t my_IWNf1;          
+        //...line for f2
+        Int_t my_IWNf2;          
+        //...counter for f1
+        Int_t my_IWNf1_Coun;     
+        //...counter for f2
+        Int_t my_IWNf2_Coun;     
+        //...counter for Tau Neutrinos
+        Int_t my_IWNtau_Neu;     
+        //...counter for ele Neutrinos (from tau decay)
+        Int_t my_IWNtau_elNeu;   
+        //...counter for muo Neutrino  (from tau decay)
+        Int_t my_IWNtau_muNeu;   
+        //...Code of 1st W- Daughter
+        Int_t my_pdgID_Wn_dw;    
+        //...Code of 2nd W- Daughter
+        Int_t my_pdgID_Wn_up;    
         TLorentzVector my_Wnf1;
         TLorentzVector my_Wnf2;
 
@@ -207,7 +244,8 @@ namespace Event {
 		Int_t ntruthleptau;
 
 		double Ht;
-		double Hz; //samor
+		//samor
+		double Hz; 
 
 		TLorentzVector ll;
 		TLorentzVector llmiss;
@@ -263,6 +301,9 @@ namespace Event {
 				TruthBbar_BoostedtoWn, TruthLepN_BoostedtoWn,    TruthNeubar_BoostedtoWn; 
 
 		double HasSolution;
+
+
+	//end_var
 
 		void Calculations (void);
 		void Calculations2 (void);

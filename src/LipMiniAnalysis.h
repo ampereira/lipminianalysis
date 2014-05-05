@@ -70,17 +70,21 @@
 #include "TInput.h"
 #include "TMonteCarlo.h"
 #include "utilities.h"
+//#include "EventDataInterface.h"
 
 #include <omp.h>
 
 #include <iostream>
 #include <sstream>
 
+
+extern std::vector<Event::EventData> events;
 // flag for data events
 extern int isData;
 // cuts for jets
 extern double EtaCutJet;
-extern int number_of_threads;
+//extern int number_of_threads;
+//extern int dilep_iterations;
 
 #define MAX_EVENTS 1000000
 #define LIPMINIANALYSIS_VERSION 2.0
