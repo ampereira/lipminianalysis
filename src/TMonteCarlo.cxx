@@ -58,7 +58,7 @@ TMonteCarlo::TMonteCarlo (int type, double run, long double lum, long long int n
 }
 
 TMonteCarlo::~TMonteCarlo (void) {
-	delete dir;
+	
 }
 
 void TMonteCarlo::SetnGenEvt (long long int nGenEvt) {
