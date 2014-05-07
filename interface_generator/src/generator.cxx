@@ -97,8 +97,10 @@ void parseLines (string file) {
 void writeDefines (void) {
 	of << endl << "/*" << endl << " *\t defines below" << endl << " */" << endl << endl << endl;
 
-	for (map<string, unsigned>::iterator it = variables.begin(); it != variables.end(); ++it)
-		of << "#define " << it->first << " events.at(Event::event_counter)." << it->first << endl;
+	for (map<string, unsigned>::iterator it = variables.begin(); it != variables.end(); ++it) {
+		if (it->first.compare("doGoodObjSelection") != 0)
+			of << "#define " << it->first << " events.at(Event::event_counter)." << it->first << endl;
+	}
 }
 
 void writeInterface (string output) {
