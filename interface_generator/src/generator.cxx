@@ -98,7 +98,7 @@ void writeDefines (void) {
 	of << endl << "/*" << endl << " *\t defines below" << endl << " */" << endl << endl << endl;
 
 	for (map<string, unsigned>::iterator it = variables.begin(); it != variables.end(); ++it) {
-		if (it->first.compare("doGoodObjSelection") != 0)
+		if (it->first.compare("doGoodObjSelection") != 0 && it->first.compare("myRunNumber") != 0)
 			of << "#define " << it->first << " events.at(Event::event_counter)." << it->first << endl;
 	}
 }
