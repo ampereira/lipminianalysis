@@ -117,6 +117,7 @@ void writeInterface (string output) {
 	of << "#include \"EventData.h\"" << endl;
 	of << "#include <vector>" << endl;
 	of << "extern std::vector<Event::EventData> events;" << endl;
+	of << endl << "#define Calculations events.at(Event::event_counter).Calculations" << endl << endl;
 
 	writeDefines();
 }
