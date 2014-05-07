@@ -1028,7 +1028,6 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
   cout << "  Total time was " << difftime(rawtimeF, rawtimeI) << " s " << endl;
   cout << endl << "Ran using " << number_of_threads << " threads" << endl;
 
-  exit(0);
 }
 
 // #############################################################################

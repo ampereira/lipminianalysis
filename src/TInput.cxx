@@ -5,6 +5,6 @@ TInput::TInput (void) {
 }
 
 TInput::~TInput (void) {
-	p_Name.clear();
-	p_Type.clear();
+//	p_Name.clear();
+//	p_Type.clear();
 }

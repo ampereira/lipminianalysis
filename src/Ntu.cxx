@@ -55,8 +55,8 @@ Ntu::Ntu() {
 Ntu::~Ntu() {
 // #############################################################################
 
-   if (!fChain) return;
-   delete fChain->GetCurrentFile();
+  // if (!fChain) return;
+  // delete fChain->GetCurrentFile();
 }
 
 // #############################################################################
