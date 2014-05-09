@@ -12,6 +12,10 @@
 #include <vector>
 extern std::vector<Event::EventData> events;
 
+#define Calculations events.at(Event::event_counter).Calculations
+#define Calculations2 events.at(Event::event_counter).Calculations2
+
+
 /*
  *	 defines below
  */
@@ -152,7 +156,6 @@ extern std::vector<Event::EventData> events;
 #define Weight events.at(Event::event_counter).Weight
 #define XX events.at(Event::event_counter).XX
 #define YY events.at(Event::event_counter).YY
-#define doGoodObjSelection events.at(Event::event_counter).doGoodObjSelection
 #define jet_n_Mini events.at(Event::event_counter).jet_n_Mini
 #define ll events.at(Event::event_counter).ll
 #define llmiss events.at(Event::event_counter).llmiss
@@ -164,7 +167,6 @@ extern std::vector<Event::EventData> events;
 #define myResolution_Truth_Jet events.at(Event::event_counter).myResolution_Truth_Jet
 #define myResolution_Truth_Lep events.at(Event::event_counter).myResolution_Truth_Lep
 #define myResolution_Truth_Mis events.at(Event::event_counter).myResolution_Truth_Mis
-#define myRunNumber events.at(Event::event_counter).myRunNumber
 #define myTruthLepVec events.at(Event::event_counter).myTruthLepVec
 #define myTruthNeuVec events.at(Event::event_counter).myTruthNeuVec
 #define myTruth_W_Vec events.at(Event::event_counter).myTruth_W_Vec

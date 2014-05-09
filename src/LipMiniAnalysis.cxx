@@ -1859,7 +1859,7 @@ void LipMiniAnalysis::Loop() {
 						events[Event::event_counter].Weight = events[Event::event_counter].Weight * Luminosity / MonteCarlo[mc_aux].lum();
 
 #ifdef CUTS_OPTIM
-/*					first_DoCuts();
+					first_DoCuts();
 		  			preKinFit();
 		  
 		  			//#pragma omp critical
@@ -1870,11 +1870,11 @@ void LipMiniAnalysis::Loop() {
 		}
 	}
 
-  second_DoCuts();
+	second_DoCuts();
 
 	Event::event_counter = 0;
 	for (int counter = 0; counter < max; counter++) {
-		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {*/
+		for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 #else
 			DoCuts();
 #endif
@@ -1928,11 +1928,11 @@ void LipMiniAnalysis::Loop() {
 		}
 		Event::event_counter++;
 	}
-#else
+/*#else
 		}
 		}
 		Event::event_counter++;
 	}
-	}
+	}*/
 #endif
 }
