@@ -1928,6 +1928,7 @@ void LipMiniAnalysis::Loop() {
 		}
 		Event::event_counter++;
 	}
+	cout << endl << "TAU" << endl << endl;
 #else
 		}
 		}
