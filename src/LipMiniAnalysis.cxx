@@ -1840,6 +1840,7 @@ void LipMiniAnalysis::Loop() {
 						// TODO: talvez criar um events por thread e fazer apenas aquela estrutura global com as
 						// combinacoes
 						events.push_back(ev);
+						cout << "tid: " << omp_get_thread_num() << endl;
 					}
 					int mc_aux = -999;
 
