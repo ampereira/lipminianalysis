@@ -1807,31 +1807,31 @@ void LipMiniAnalysis::Loop() {
 
 #ifdef CUTS_OPTIM
 	int max = 0;
-	//#pragma omp parallel reduction(+:max)
+	#pragma omp parallel reduction(+:max)
 #else
 	//#pragma omp parallel
 #endif
 	{
 		int tid = omp_get_thread_num();
 		// If a thread has reached the end of the file it cancels the loop
-		//#pragma omp for //schedule(dynamic)
+		#pragma omp for //schedule(dynamic)
 		for (unsigned i_event = 0; i_event < MAX_EVENTS; ++i_event) {
 
 			Int_t ientry;
 			// standard stuff to get the event in memory
-			//#pragma omp critical
+			#pragma omp critical
 			ientry = nTuple[tid]->LoadTree(i_event);
 
 			if (ientry < 0) {
 				i_event = MAX_EVENTS;
 			} else {
-				//#pragma omp critical
+				#pragma omp critical
 				nTuple[tid]->fChain->GetEntry(i_event);
 
 				// loop over systematics
 				for (Int_t i_syst=0; i_syst<Syst.size(); ++i_syst) {
 					// Create a new event object for each systematic
-					//#pragma omp critical
+					#pragma omp critical
 					{
 						Event::EventData ev (nTuple[tid]);
 						ev.RecoType = Syst[i_syst];
@@ -1862,7 +1862,7 @@ void LipMiniAnalysis::Loop() {
 					first_DoCuts();
 		  			preKinFit();
 		  
-		  			//#pragma omp critical
+		  			#pragma omp critical
 					Event::event_counter++;
 				}
 				max++;
@@ -1928,7 +1928,6 @@ void LipMiniAnalysis::Loop() {
 		}
 		Event::event_counter++;
 	}
-	cout << endl << "TAU" << endl << endl;
 #else
 		}
 		}
