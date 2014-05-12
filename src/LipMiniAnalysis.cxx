@@ -1813,6 +1813,7 @@ void LipMiniAnalysis::Loop() {
 #endif
 	{
 		int tid = omp_get_thread_num();
+		cout << "tid: " << tid  << endl;
 		// If a thread has reached the end of the file it cancels the loop
 		#pragma omp for //schedule(dynamic)
 		for (unsigned i_event = 0; i_event < MAX_EVENTS; ++i_event) {
@@ -1840,7 +1841,6 @@ void LipMiniAnalysis::Loop() {
 						// TODO: talvez criar um events por thread e fazer apenas aquela estrutura global com as
 						// combinacoes
 						events.push_back(ev);
-						cout << "tid: " << omp_get_thread_num() << endl;
 					}
 					int mc_aux = -999;
 
