@@ -684,7 +684,7 @@ void LipMiniAnalysis::Start(int i_argc, char *const *i_argv) {
 
   // .....comment the two lines below if you would like to have the output writen to screen
   //freopen(LogName, "w", stdout);
-  //freopen(ErrName, "w", stderr);
+  freopen(ErrName, "w", stderr);
 
   // Prints logo
   cout << endl;
