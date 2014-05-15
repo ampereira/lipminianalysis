@@ -1837,6 +1837,7 @@ void LipMiniAnalysis::Loop() {
 						Event::EventData ev (nTuple[tid]);
 						ev.RecoType = Syst[i_syst];
 						ev.FillAllVectors();
+						ev.tseed = time(NULL);
 
 						// TODO: talvez criar um events por thread e fazer apenas aquela estrutura global com as
 						// combinacoes

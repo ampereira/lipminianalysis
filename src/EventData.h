@@ -68,6 +68,7 @@ namespace Event {
 		TLorentzVector RecB_BoostedtoWp, RecLepP_BoostedtoWp, RecNeu_BoostedtoWp, 
 			RecBbar_BoostedtoWn, RecLepN_BoostedtoWn, RecNeubar_BoostedtoWn; 
 
+		unsigned tseed;
 
 		int Isub;
 		int LumiBlock; 
