@@ -1,8 +1,8 @@
 #ifndef TTDKFBESTSOL
 #define TTDKFBESTSOL
 
-#include "../../LipMiniAnalysis/TLorentzVectorWFlags.h"
-#include "../../LipMiniAnalysis/LipMiniAnalysis.h"
+#include "TLorentzVectorWFlags.h"
+#include "LipMiniAnalysis.h"
 
 class ttDKF_Best_Sol {
 
